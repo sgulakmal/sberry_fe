@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserState } from './type';
 
-interface UserState {
-  isLoggedIn: boolean;
-  name: string | null;
-  email: string | null;
-}
 
 const initialState: UserState = {
   isLoggedIn: false,
