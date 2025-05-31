@@ -1,8 +1,8 @@
-import { selectReactionsByPostId } from '@/lip/features/reactions/reactionsSelectors';
-import { addReaction, setInitialReaction } from '@/lip/features/reactions/reactionsSlice';
-import { ReactionType } from '@/lip/features/reactions/types';
-import { AppDispatch } from '@/lip/store';
-import { Store } from '@/lip/type';
+import { selectReactionsByPostId } from '@/lib/features/reactions/reactionsSelectors';
+import { addReaction, setInitialReaction } from '@/lib/features/reactions/reactionsSlice';
+import { ReactionType } from '@/lib/features/reactions/types';
+import { AppDispatch } from '@/lib/store';
+import { Store } from '@/lib/type';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 

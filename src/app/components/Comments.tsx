@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { Store } from '@/lip/type';
-// import {
-//   addComment,
-//   likeComment,
-//   updateReplyInput,
-//   addReply,
-// } from "@/lip/features/comments/commentsSlice";
-import { commentSelector } from '@/lip/features/comments/commentsSelector';
-import { addComment, addReply, likeComment, updateReplyInput } from '@/lip/features/comments/commentsSlice';
-import { AppDispatch, RootState } from '@/lip/store';
+import { commentSelector } from '@/lib/features/comments/commentsSelector';
+import { addComment, addReply, likeComment, updateReplyInput } from '@/lib/features/comments/commentsSlice';
+import { AppDispatch, RootState } from '@/lib/store';
 
 
 interface CommentsProps {
