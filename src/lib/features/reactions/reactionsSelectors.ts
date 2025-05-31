@@ -1,5 +1,5 @@
 
-import { RootState } from '@/lip/store';
+import { RootState } from '@/lib/store';
 import { Reactions } from './types';
 
 export const selectReactionsByPostId = (

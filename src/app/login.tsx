@@ -6,7 +6,7 @@ import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 import Reactions from "./components/Reactions";
 
-export default function Home() {
+export default function Login() {
 
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth);
