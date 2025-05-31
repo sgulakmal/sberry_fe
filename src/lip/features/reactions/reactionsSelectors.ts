@@ -2,10 +2,8 @@
 import { RootState } from '@/lip/store';
 import { Reactions } from './types';
 
-export const selectReactionsByPostId = (
-  state: RootState,
-  postId: string
-): Reactions => {
+export const selectReactionsByPostId = ( state: RootState, postId: string)
+: Reactions => {
   return (
     state.reactions.reactionsByPostId[postId] || {
       Like: 0,

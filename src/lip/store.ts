@@ -1,13 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './features/user/userSlice'
 import reactionsReducer from './features/reactions/reactionsSlice'
-
+import commentsReducer from './features/comments/commentsSlice'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
         auth: authReducer,
         reactions: reactionsReducer,
+        comments: commentsReducer,
     },
   })
 }

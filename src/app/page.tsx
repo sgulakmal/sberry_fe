@@ -5,6 +5,7 @@ import { login, logout } from "@/lip/features/user/userSlice";
 import { RootState } from "@/lip/store";
 import { useDispatch, useSelector } from "react-redux";
 import Reactions from "./components/Reactions";
+import CommentComponent from "./components/Comments";
 
 export default function Home() {
 
@@ -21,11 +22,13 @@ export default function Home() {
             <h2>Post #1</h2>
             <p>Hi all</p>
             <Reactions postId="post2" />
+            <CommentComponent postId="post2"/>
           </div>
           <div style={{ padding: '20px' }}>
             <h2>Post #1</h2>
             <p>Hi all second post</p>
             <Reactions postId="post1" />
+               <CommentComponent postId="post1"/>
           </div>
         </>
       ) : (

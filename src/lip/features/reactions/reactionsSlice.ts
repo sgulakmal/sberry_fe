@@ -29,25 +29,25 @@ const reactionsSlice = createSlice({
         ...reactions,
       };
     },
-    addReaction: (
-      state,
-      action: PayloadAction<{ postId: string; reactionType: ReactionType }>
-    ) => {
-      const { postId, reactionType } = action.payload;
-      const postReactions = state.reactionsByPostId[postId] || { ...initialReactions };
+      addReaction: (
+        state,
+        action: PayloadAction<{ postId: string; reactionType: ReactionType }>
+      ) => {
+        const { postId, reactionType } = action.payload;
+        const postReactions = state.reactionsByPostId[postId] || { ...initialReactions };
 
-      // Decrease previous reaction
-      const prevReaction = postReactions.userReaction;
-      if (prevReaction && postReactions[prevReaction] > 0) {
-        postReactions[prevReaction] -= 1;
-      }
+        // Decrease previous reaction
+        const prevReaction = postReactions.userReaction;
+        if (prevReaction && postReactions[prevReaction] > 0) {
+          postReactions[prevReaction] -= 1;
+        }
 
-      // Increase new reaction
-      postReactions[reactionType] += 1;
-      postReactions.userReaction = reactionType;
+        // Increase new reaction
+        postReactions[reactionType] += 1;
+        postReactions.userReaction = reactionType;
 
-      state.reactionsByPostId[postId] = postReactions;
-    },
+        state.reactionsByPostId[postId] = postReactions;
+      },
   },
 });
 
