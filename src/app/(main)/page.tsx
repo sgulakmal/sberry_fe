@@ -4,21 +4,29 @@
 import { login, logout } from "@/lib/features/user/userSlice";
 import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
-import Reactions from "./components/Reactions";
-import CommentComponent from "./components/Comments";
-import { useRouter } from 'next/navigation';
+import Reactions from "../components/Reactions";
+import CommentComponent from "../components/Comments";
 import { useEffect } from "react";
 
 export default function Home() {
-  const router = useRouter()
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth);
 
-  useEffect(() => {
-    if (!user.isLoggedIn) {
-      router.push('/login');
+  // useEffect(() => {
+  //   if (!user.isLoggedIn) {
+  //     router.push('/login');
+  //   }
+  // }, [user.isLoggedIn]);
+
+   useEffect(() => {
+    const cookies = document.cookie;
+    console.log('Cookies:', cookies);
+    if (!cookies.includes('auth-token')) {
+           dispatch(login({ name: 'Udayanga', email: 'uday@example.com' }))
+    } else {
+      window.location.href = '/login';
     }
-  }, [user.isLoggedIn]);
+  }, []);
 
 
   return (
