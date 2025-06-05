@@ -2,6 +2,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './features/user/userSlice'
 import reactionsReducer from './features/reactions/reactionsSlice'
 import commentsReducer from './features/comments/commentsSlice'
+import feedReducer from './features/Feed/feedSlice'
+import friendReducer from './features/friends/friendSlice'
 
 export const makeStore = () => {
   return configureStore({
@@ -9,6 +11,8 @@ export const makeStore = () => {
         auth: authReducer,
         reactions: reactionsReducer,
         comments: commentsReducer,
+           feed: feedReducer,
+           friends: friendReducer
     },
   })
 }

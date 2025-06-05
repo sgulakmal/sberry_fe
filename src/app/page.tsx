@@ -6,6 +6,10 @@ import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 import Reactions from "./components/Reactions";
 import CommentComponent from "./components/Comments";
+import CreatePost from "./components/createPost";
+import Feed from "./components/feed";
+import HeaderSearch from "./components/HeaderSearch";
+import FriendList from "./components/FriendList";
 
 export default function Home() {
 
@@ -21,9 +25,19 @@ export default function Home() {
           <div style={{ padding: '20px' }}>
             <h2>Post #1</h2>
             <p>Hi all</p>
+                <div className="p-4">
+      <HeaderSearch />
+    </div>
             <Reactions postId="post2" />
-            <CommentComponent postId="post2"/>
+              <CommentComponent postId="post2"/>
+                <CreatePost/>
+                  <Feed/>
+                  {/* <FriendList /> */}
           </div>
+
+             
+    
+
           <div style={{ padding: '20px' }}>
             <h2>Post #1</h2>
             <p>Hi all second post</p>
