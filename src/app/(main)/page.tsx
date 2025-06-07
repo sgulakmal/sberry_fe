@@ -12,6 +12,8 @@ import { useEffect } from "react";
 import Feed from "../components/feed";
 import HeaderSearch from "../components/HeaderSearch";
 import CreatePost from "../components/createPost";
+import Posts from "../components/Posts";
+import AnnouncementBanner from "../components/Announcements";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -41,26 +43,27 @@ export default function Home() {
           <p>Welcome, {user.name} ({user.email})</p>
           <button onClick={() => dispatch(logout())}>Logout</button>
           <div style={{ padding: '20px' }}>
-            <h2>Post #1</h2>
-            <p>Hi all</p>
+            {/* <h2>Post #1</h2>
+            <p>Hi all</p> */}
                 <div className="p-4">
       <HeaderSearch />
     </div>
-            <Reactions postId="post2" />
-              <CommentComponent postId="post2"/>
-                <CreatePost/>
+
+   <AnnouncementBanner/> 
+    <Posts/>
+            {/* <Reactions postId="post2" /> */}
+              {/* <CommentComponent postId="post2"/> */}
+                {/* <CreatePost/> */}
                   <Feed/>
-                  {/* <FriendList /> */}
+                   {/* <FriendList/> */}
           </div>
 
              
     
 
           <div style={{ padding: '20px' }}>
-            <h2>Post #1</h2>
-            <p>Hi all second post</p>
-            <Reactions postId="post1" />
-            <CommentComponent postId="post1" />
+            {/* <Reactions postId="post1" /> */}
+            {/* <CommentComponent postId="post1" /> */}
           </div>
         </>
       ) : (

@@ -4,6 +4,7 @@ import reactionsReducer from './features/reactions/reactionsSlice'
 import commentsReducer from './features/comments/commentsSlice'
 import feedReducer from './features/Feed/feedSlice'
 import friendReducer from './features/friends/friendSlice'
+import announcementReducer from './features/announcements/announcementsSlice'
 
 export const makeStore = () => {
   return configureStore({
@@ -12,8 +13,8 @@ export const makeStore = () => {
         reactions: reactionsReducer,
         comments: commentsReducer,
            feed: feedReducer,
-           friends: friendReducer
-    },
+           friends: friendReducer,
+          announcement: announcementReducer,    },
   })
 }
 
