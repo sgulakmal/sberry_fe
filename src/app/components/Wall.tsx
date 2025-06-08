@@ -25,7 +25,7 @@ export default function Wall() {
 
     useEffect(() => {
 
-        const headerHeight = 100;
+        const headerHeight = 100; // Adjust this based on header height
         const updateHeight = () => {
             setListHeight(window.innerHeight - headerHeight);
         };
