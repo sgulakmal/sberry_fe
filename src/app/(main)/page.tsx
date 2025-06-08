@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import HeaderSearch from "../components/HeaderSearch";
 import Posts from "../components/Posts";
 import AnnouncementBanner from "../components/Announcements";
-import Feed from "../components/Feed";
 import Wall from "../components/Wall";
 
 export default function Home() {
