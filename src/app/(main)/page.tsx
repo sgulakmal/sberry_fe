@@ -21,7 +21,7 @@ export default function Home() {
    useEffect(() => {
     const cookies = document.cookie;
     console.log('Cookies:', cookies);
-    if (!cookies.includes('auth-token')) {
+    if (cookies.includes('auth-token')) {
            dispatch(login({ name: 'Udayanga', email: 'uday@example.com' }))
     } else {
       window.location.href = '/login';
