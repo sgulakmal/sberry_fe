@@ -19,7 +19,7 @@ const feedSlice = createSlice({
   name: 'feed',
   initialState,
   reducers: {
-    addPost: (state, action: PayloadAction<{ user: string; content: string }>) => {
+    addPosts: (state, action: PayloadAction<{ user: string; content: string }>) => {
       const newPost: Post = {
         id: Date.now().toString(),
         user: action.payload.user,

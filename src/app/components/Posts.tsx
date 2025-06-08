@@ -1,17 +1,19 @@
-import React from 'react'
-import CreatePost from './createPost'
-import Reactions from './Reactions'
-import CommentComponent from './Comments'
+import React from 'react';
+import Reactions from './Reactions';
+import CommentComponent from './Comments';
+import { useSelector } from 'react-redux';
+import { AppStore } from '@/lib/type';
+import { Post } from '@/lib/features/post/types';
 
-export default function Posts() {
+export default function Posts({ postId }) {
+  const post: Post = useSelector((state: AppStore) => state.post.postByPostId[postId]);
+
   return (
-    <>
-                <h2>Post #1</h2>
-            <p>Hi all second post</p>
-   <CreatePost />
-               <Reactions postId="post1" />
-                    <CommentComponent postId="post2"/>
-               </>
-
-  )
+    (post ? <>
+      <h2>Post #{postId}</h2>
+      <p>{post.content}</p>
+      <Reactions postId={postId} />
+      <CommentComponent postId={postId} />
+    </> : <>Post Not Found for id {postId} <br /></>) 
+  );
 }

@@ -4,16 +4,12 @@
 import { login, logout } from "@/lib/features/user/userSlice";
 import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
-
-
-import Reactions from "../components/Reactions";
-import CommentComponent from "../components/Comments";
 import { useEffect } from "react";
-import Feed from "../components/feed";
 import HeaderSearch from "../components/HeaderSearch";
-import CreatePost from "../components/createPost";
 import Posts from "../components/Posts";
 import AnnouncementBanner from "../components/Announcements";
+import Feed from "../components/Feed";
+import Wall from "../components/Wall";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -25,11 +21,11 @@ export default function Home() {
   //   }
   // }, [user.isLoggedIn]);
 
-   useEffect(() => {
+  useEffect(() => {
     const cookies = document.cookie;
     console.log('Cookies:', cookies);
     if (cookies.includes('auth-token')) {
-           dispatch(login({ name: 'Udayanga', email: 'uday@example.com' }))
+      dispatch(login({ name: 'Udayanga', email: 'uday@example.com' }))
     } else {
       window.location.href = '/login';
     }
@@ -40,26 +36,8 @@ export default function Home() {
     <div>
       {user.isLoggedIn ? (
         <>
-          <p>Welcome, {user.name} ({user.email})</p>
-          <button onClick={() => dispatch(logout())}>Logout</button>
-          <div style={{ padding: '20px' }}>
-            {/* <h2>Post #1</h2>
-            <p>Hi all</p> */}
-                <div className="p-4">
-      <HeaderSearch />
-    </div>
 
-   <AnnouncementBanner/> 
-    <Posts/>
-            {/* <Reactions postId="post2" /> */}
-              {/* <CommentComponent postId="post2"/> */}
-                {/* <CreatePost/> */}
-                  <Feed/>
-                   {/* <FriendList/> */}
-          </div>
-
-             
-    
+          <Wall />
 
           <div style={{ padding: '20px' }}>
             {/* <Reactions postId="post1" /> */}
