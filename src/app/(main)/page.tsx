@@ -4,9 +4,16 @@
 import { login, logout } from "@/lib/features/user/userSlice";
 import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
+
+
 import Reactions from "../components/Reactions";
 import CommentComponent from "../components/Comments";
 import { useEffect } from "react";
+import Feed from "../components/feed";
+import HeaderSearch from "../components/HeaderSearch";
+import CreatePost from "../components/createPost";
+import Posts from "../components/Posts";
+import AnnouncementBanner from "../components/Announcements";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -36,16 +43,27 @@ export default function Home() {
           <p>Welcome, {user.name} ({user.email})</p>
           <button onClick={() => dispatch(logout())}>Logout</button>
           <div style={{ padding: '20px' }}>
-            <h2>Post #1</h2>
-            <p>Hi all</p>
-            <Reactions postId="post2" />
-            <CommentComponent postId="post2" />
+            {/* <h2>Post #1</h2>
+            <p>Hi all</p> */}
+                <div className="p-4">
+      <HeaderSearch />
+    </div>
+
+   <AnnouncementBanner/> 
+    <Posts/>
+            {/* <Reactions postId="post2" /> */}
+              {/* <CommentComponent postId="post2"/> */}
+                {/* <CreatePost/> */}
+                  <Feed/>
+                   {/* <FriendList/> */}
           </div>
+
+             
+    
+
           <div style={{ padding: '20px' }}>
-            <h2>Post #1</h2>
-            <p>Hi all second post</p>
-            <Reactions postId="post1" />
-            <CommentComponent postId="post1" />
+            {/* <Reactions postId="post1" /> */}
+            {/* <CommentComponent postId="post1" /> */}
           </div>
         </>
       ) : (
