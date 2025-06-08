@@ -38,10 +38,6 @@ export default function Home() {
 
           <Wall />
 
-          <div style={{ padding: '20px' }}>
-            {/* <Reactions postId="post1" /> */}
-            {/* <CommentComponent postId="post1" /> */}
-          </div>
         </>
       ) : (
         <>

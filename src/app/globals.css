@@ -15,7 +15,9 @@
 }
 
 body {
+  padding-top: 20px;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
