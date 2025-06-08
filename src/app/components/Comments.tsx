@@ -8,28 +8,6 @@ import { AppDispatch, RootState } from '@/lib/store';
 interface CommentsProps {
     postId: string;
 }
-const com = [
-    {
-        id: 'post1', comment: [{
-            id: Date.now(),
-             postId:'post1',
-        text: 'love',
-        likes: 0,
-        replies: [],
-        replyInput: "",
-        }]
-    },
-    {
-        id: 'post2', comment: [{
-           id: Date.now(),
-            postId:'post2',
-        text: 'le',
-        likes: 0,
-        replies: [],
-        replyInput: "",
-        }]
-    }
-];
 
 const CommentComponent: React.FC<CommentsProps> = ({ postId }) => {
 
@@ -40,23 +18,6 @@ const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
     const dispatch = useDispatch<AppDispatch>();
    //const comments = useSelector((state: Store) => commentSelector(state, postId));
   const comments = useAppSelector(commentSelector(postId));
-console.log('ssss',comments);
-
-    // Set initial reaction only once on mount or when postId changes
-    // useEffect(() => {
-    //     const initialComment = com.find((p) => p.id === postId)?.comment;
-    //     if (initialComment) {
-    //         dispatch(setInitialComments({ postId, comments: initialComment }));
-    //     }
-    // }, [dispatch, postId]);
-      // Set initial reaction only once on mount or when postId changes
-    //   useEffect(() => {
-    //       const initialReaction = posts.find((p) => p.id === postId)?.reaction;
-    //       if (initialReaction) {
-    //           dispatch(setInitialComments({ postId, reactions: initialReaction }));
-    //       }
-    //   }, [dispatch, postId]);
-
 
   
   return (

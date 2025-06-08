@@ -1,6 +1,6 @@
 // app/feed/CreatePost.tsx
 'use client';
-import { addPost } from '@/lib/features/Feed/feedSlice';
+import { addPost } from '@/lib/features/feed/feedSlice';
 import { AppDispatch } from '@/lib/store';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';

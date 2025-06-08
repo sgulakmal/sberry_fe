@@ -51,12 +51,13 @@ bun install
 ```bash
 src/
 ├── app/              # App Router entry point
-│   └── page.tsx      # Default route (home)
+│   └──(auth) page.tsx      # Default auth route (auth home)
+    └──(main) page.tsx      # Default main route (main home)
 ├── components/       # Reusable React components
 ├── styles/           # Tailwind and global styles
 ├── public/           # Static assets like images
-├── utils/            # Utility functions (optional)
-└── ...
+├── utils/            # Utility functions
+
 ```
 
 ### 3. 🧪 Development Tools

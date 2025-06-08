@@ -1,17 +1,17 @@
 
-import { RootState } from '@/lib/store';
-import { Reactions } from './types';
+import { AppStore } from '@/lib/type';
+import { ReactionSummary } from './types';
 
-export const selectReactionsByPostId = ( state: RootState, postId: string)
-: Reactions => {
+export const selectReactionsByPostId = ( state: AppStore, postId: string)
+: ReactionSummary => {
   return (
     state.reactions.reactionsByPostId[postId] || {
-      Like: 0,
-      Love: 0,
-      Haha: 0,
-      Wow: 0,
-      Sad: 0,
-      Angry: 0,
+      like: 0,
+      love: 0,
+      haha: 0,
+      wow: 0,
+      sad: 0,
+      angry: 0,
       userReaction: null,
     }
   );

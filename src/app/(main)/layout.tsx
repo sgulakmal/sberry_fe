@@ -51,38 +51,7 @@ export default function RootLayout({
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 p-6">
-          {/* Post box */}
-          <div className="bg-white p-4 rounded-lg shadow mb-4">
-            <input
-              type="text"
-              placeholder="Eric, Let's cheer someone up today!"
-              className="w-full p-2 border rounded mb-2"
-            />
-            <div className="flex space-x-4">
-              <button className="text-yellow-600">🏆 Nominate</button>
-              <button className="text-orange-600">🎖 Award</button>
-              <button className="text-blue-600">📣 Announce</button>
-            </div>
-          </div>
-
-          {/* Stories */}
-          <div className="bg-white p-4 rounded-lg shadow mb-4">
-            <h2 className="text-lg font-semibold mb-3">Stories</h2>
-            <div className="flex space-x-4 overflow-x-auto">
-              <div className="w-24 h-40 bg-gray-200 flex items-center justify-center rounded-lg">
-                Create
-              </div>
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={i}
-                  className="w-24 h-40 rounded-lg bg-cover bg-center"
-                  style={{ backgroundImage: `url('https://via.placeholder.com/80x120')` }}
-                ></div>
-              ))}
-            </div>
-          </div>
-
+        <main className="flex-1 p-6">   
           <StoreProvider>{children}</StoreProvider>
         </main>
 
