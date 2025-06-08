@@ -14,6 +14,7 @@ import HeaderSearch from "../components/HeaderSearch";
 import CreatePost from "../components/createPost";
 import Posts from "../components/Posts";
 import AnnouncementBanner from "../components/Announcements";
+import FriendList from "../components/FriendList";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ export default function Home() {
               {/* <CommentComponent postId="post2"/> */}
                 {/* <CreatePost/> */}
                   <Feed/>
-                   {/* <FriendList/> */}
+                   <FriendList/>
           </div>
 
              
