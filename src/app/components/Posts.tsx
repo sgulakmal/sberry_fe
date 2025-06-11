@@ -17,7 +17,6 @@ export default function Posts({ postId }) {
   function getRandomImageForPost(): string {
     const images: string[] = ['/images/sample_post0.png', '/images/sample_post1.jpg', '/images/sample_post2.jpg', '/images/sample_post3.jpeg', 
       'https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg',
-      'https://images.pexels.com/photos/2033997/pexels-photo-2033997.jpeg',
       'https://images.pexels.com/photos/1903702/pexels-photo-1903702.jpeg',
       'https://images.pexels.com/photos/1040626/pexels-photo-1040626.jpeg',
       'https://images.pexels.com/photos/459203/pexels-photo-459203.jpeg',
@@ -60,7 +59,7 @@ export default function Posts({ postId }) {
         </p>
 
         {/* Image */}
-        <div className="w-full rounded-md overflow-hidden">
+        <div className="h-[600px] rounded-md overflow-hidden">
           <Image
             src={getRandomImageForPost()}
             // src={post.images ? post.images[0] : "/images/sample_post.png"}
