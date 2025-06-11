@@ -20,16 +20,21 @@ const initialState: NavigationState = {
       ],
     },
   ],
+  scrollToTopSignal: 0 // used as a trigger
 };
 
 
-const menuSlice = createSlice({
+const navigationSlice = createSlice({
   name: 'menu',
   initialState,
-  reducers: {},
+  reducers: {
+    triggerScrollToTop: (state) => {
+      state.scrollToTopSignal += 1; // increment triggers effect
+    },
+  },
 });
 
-
-export default menuSlice.reducer;
+export const { triggerScrollToTop } = navigationSlice.actions;
+export default navigationSlice.reducer;
 
 

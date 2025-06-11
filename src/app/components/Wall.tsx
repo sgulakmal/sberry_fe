@@ -1,6 +1,6 @@
 'use client';
 
-import { FixedSizeList as List, ListOnItemsRenderedProps } from 'react-window';
+import { VariableSizeList as List, ListOnItemsRenderedProps } from 'react-window';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -12,6 +12,9 @@ import { AppStore } from '@/lib/type';
 import { setInitialPost } from '@/lib/features/post/postSlice';
 import { setInitialReaction } from '@/lib/features/reactions/reactionsSlice';
 import Posts from './Posts';
+import AnnouncementBanner from './Announcements';
+import { ScrollContainer } from '../utils';
+
 
 export default function Wall() {
     const dispatch = useDispatch<AppDispatch>();
@@ -21,7 +24,8 @@ export default function Wall() {
     const isLoadingRef = useRef(false);
     const [isReady, setIsReady] = useState(false); // guard to prevent initial mismatch
     const [listHeight, setListHeight] = useState(0);
-
+    const listRef = useRef<List>(null);
+    const scrollSignal = useSelector((state: AppStore) => state.navigation.scrollToTopSignal);
 
     useEffect(() => {
 
@@ -36,9 +40,14 @@ export default function Wall() {
             return () => window.removeEventListener('resize', updateHeight);
         }
     }, []);
+
     useEffect(() => {
         fetchPosts(page);
     }, [page]);
+
+    useEffect(() => {
+        listRef.current?.scrollToItem(0, 'start');
+    }, [scrollSignal]); // fires every time signal is incremented
 
     const fetchPosts = async (page: number) => {
         if (isLoadingRef.current || !hasMore) return;
@@ -75,29 +84,44 @@ export default function Wall() {
         }
     };
 
-    const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
+    const Row = ({ index }: { index: number }) => {
         const postId = wall.postIds[index];
         return (
-            <div style={style}>
-                <Posts postId={postId} />
-            </div>
+
+            <Posts postId={postId} />
+
         );
     };
 
     // ❗ Delay rendering until posts are fetched to prevent hydration mismatch
     if (!isReady) return <div>Loading Wall...</div>;
 
+    const getItemSize = (index: number) => {
+        return index === 0 ? 1200 : 800;
+    };
+
+
     return (
-        <List
-            height={listHeight}
-            itemCount={wall.postIds.length}
-            itemSize={800}
-            width="60vw" // 40% of viewport width
-            onItemsRendered={handleItemsRendered}
-            className="scrollbar-hide"
-            // style={{ maxWidth: '900px' }} // Set any max width
-        >
-            {Row}
-        </List>
+        <div style={{ height: listHeight, width: '60vw' }}>
+            <List
+                ref={listRef}
+                outerElementType={ScrollContainer}
+                height={listHeight}
+                itemCount={wall.postIds.length}
+                itemSize={getItemSize}
+                width="100%"
+                onItemsRendered={handleItemsRendered}
+                className="scrollbar-hide"
+            >
+                {({ index, style }) => (
+                    <div style={style}>
+                        {index === 0 && <AnnouncementBanner />}
+                        <Row index={index} />
+                    </div>
+                )}
+            </List>
+        </div>
     );
 }
+
+

@@ -15,14 +15,14 @@ export default function Posts({ postId }) {
 
   // temp
   function getRandomImageForPost(): string {
-    const images: string[] = ['/images/sample_post0.png', '/images/sample_post1.jpg', '/images/sample_post2.jpg', '/images/sample_post3.jpeg', 
-      'https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg',
+    const images: string[] = ['/images/sample_post0.png', '/images/sample_post1.jpg', '/images/sample_post2.jpg', '/images/sample_post3.jpeg',
       'https://images.pexels.com/photos/1903702/pexels-photo-1903702.jpeg',
       'https://images.pexels.com/photos/1040626/pexels-photo-1040626.jpeg',
       'https://images.pexels.com/photos/459203/pexels-photo-459203.jpeg',
       'https://images.pexels.com/photos/1020016/pexels-photo-1020016.jpeg',
       'https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg',
-      'https://images.pexels.com/photos/145939/pexels-photo-145939.jpeg',]
+      'https://images.pexels.com/photos/145939/pexels-photo-145939.jpeg',
+      'https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg',]
 
     const hash = postId.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
 

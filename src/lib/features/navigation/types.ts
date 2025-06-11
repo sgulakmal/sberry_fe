@@ -11,4 +11,5 @@ export interface MenuSection {
 
 export interface NavigationState {
   sections: MenuSection[];
+  scrollToTopSignal: number;
 }

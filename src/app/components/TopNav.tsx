@@ -1,7 +1,18 @@
 import Image from 'next/image';
 import { IconButton } from '../utils/components/IconButton';
+import { useDispatch } from 'react-redux';
+import { triggerScrollToTop } from '@/lib/features/navigation/navigationSlice';
 
 export default function TopNav() {
+
+  const dispatch = useDispatch();
+
+  const handleMenuClick = (path: string) => {
+    if (path === 'home') {
+      dispatch(triggerScrollToTop());
+    }
+  }
+
   return (
     <div className="flex items-center justify-between bg-green-600 p-2 px-4 text-white">
       {/* Left Section */}
@@ -19,7 +30,7 @@ export default function TopNav() {
         <select
           value={1}
           className="bg-green-500 text-white placeholder-white text-sm px-4 py-1 rounded-full focus:outline-none w-48"
-          onChange={e => console.log("change company")}
+          onChange={() => console.log("change company")}
         >
           <option value="1">Centara Group</option>
         </select>
@@ -27,7 +38,7 @@ export default function TopNav() {
 
       {/* Middle IconButtons */}
       <div className="flex items-center space-x-6">
-        <IconButton icon="home" />
+        <IconButton icon="home" onClick={() => handleMenuClick('home')} />
         <IconButton icon="goal" />
         <IconButton icon="house" />
         <IconButton icon="group" />

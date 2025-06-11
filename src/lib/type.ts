@@ -5,6 +5,7 @@ import { FriendState } from "./features/friends/types";
 import { UserState } from "./features/user/type";
 import { WallState } from "./features/wall/types";
 import { PostState } from "./features/post/types";
+import { NavigationState } from "./features/navigation/types";
 
 
 export interface AppStore {
@@ -14,5 +15,6 @@ export interface AppStore {
     feed: FeedState
     friend: FriendState;
     wall: WallState;
-    post: PostState
+    post: PostState;
+    navigation: NavigationState;
 }
