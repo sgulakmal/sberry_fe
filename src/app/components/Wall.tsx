@@ -47,14 +47,14 @@ export default function Wall() {
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts?page=${page}`);
-            const posts: Post[] = await res.json();
+            const posts: {items: Post[]} = await res.json();
 
-            if (posts.length === 0) {
+            if (posts.items.length === 0) {
                 setHasMore(false);
                 return;
             }
 
-            posts.forEach(post => {
+            posts.items.forEach(post => {
                 dispatch(addPostsToWall(post.postId));
                 dispatch(setInitialPost({ postId: post.postId, post }));
                 dispatch(setInitialReaction({ postId: post.postId, reactions: post.reactions }));
