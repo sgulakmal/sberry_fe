@@ -46,8 +46,8 @@ export default function Wall() {
         isLoadingRef.current = true;
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts?page=${page}`);
-            const posts: {items: Post[]} = await res.json();
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`);
+            const posts: { items: Post[] } = await res.json();
 
             if (posts.items.length === 0) {
                 setHasMore(false);
@@ -91,10 +91,11 @@ export default function Wall() {
         <List
             height={listHeight}
             itemCount={wall.postIds.length}
-            itemSize={900}
-            width={'100%'}
+            itemSize={800}
+            width="60vw" // 40% of viewport width
             onItemsRendered={handleItemsRendered}
             className="scrollbar-hide"
+            // style={{ maxWidth: '900px' }} // Set any max width
         >
             {Row}
         </List>

@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
         hostname: "sberry-images-dev.s3.amazonaws.com",
         pathname: "/images/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.pexels.com",
+        pathname: "/photos/**",
+      },
+
     ],
   },
 };

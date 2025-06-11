@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Reactions from './Reactions';
 // import CommentComponent from './Comments';
 import { useSelector } from 'react-redux';
@@ -11,12 +11,30 @@ import { selectReactionsByPostId } from '@/lib/features/reactions/reactionsSelec
 export default function Posts({ postId }) {
   const post: Post = useSelector((state: AppStore) => state.post.postByPostId[postId]);
   const reactions = useSelector((state: AppStore) => selectReactionsByPostId(state, postId));
+  const [imageLoading, setImageLoading] = useState(true);
+
+  // temp
+  function getRandomImageForPost(): string {
+    const images: string[] = ['/images/sample_post0.png', '/images/sample_post1.jpg', '/images/sample_post2.jpg', '/images/sample_post3.jpeg', 
+      'https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg',
+      'https://images.pexels.com/photos/2033997/pexels-photo-2033997.jpeg',
+      'https://images.pexels.com/photos/1903702/pexels-photo-1903702.jpeg',
+      'https://images.pexels.com/photos/1040626/pexels-photo-1040626.jpeg',
+      'https://images.pexels.com/photos/459203/pexels-photo-459203.jpeg',
+      'https://images.pexels.com/photos/1020016/pexels-photo-1020016.jpeg',
+      'https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg',
+      'https://images.pexels.com/photos/145939/pexels-photo-145939.jpeg',]
+
+    const hash = postId.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+
+    return images[(hash % images.length)];
+  }
 
   return (
-    (post ? <>
+    (post && post.content ? <>
 
 
-      <div className="w-full mx-auto bg-white rounded-md shadow p-4 space-y-4">
+      <div className="w-full max-h-200 mx-auto bg-white rounded-md shadow p-4 space-y-4">
         {/* Header */}
         <div className="flex items-start space-x-3">
           <Image
@@ -44,12 +62,14 @@ export default function Posts({ postId }) {
         {/* Image */}
         <div className="w-full rounded-md overflow-hidden">
           <Image
-            src="/images/sample_post.png"
+            src={getRandomImageForPost()}
             // src={post.images ? post.images[0] : "/images/sample_post.png"}
             alt={post.content}
-            className="w-full h-auto"
-            width={400}
-            height={350}
+            // className="mx-auto block"
+            width="800"
+            height="350"
+            className={`mx-auto block block transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+            onLoadingComplete={() => setImageLoading(false)}
           />
         </div>
 
@@ -72,7 +92,7 @@ export default function Posts({ postId }) {
             <Reactions postId={postId} />
             <IconButton icon="comment" text="Comment"></IconButton>
             <IconButton icon="share" text="Share"></IconButton>
-            
+
           </div>
         </div>
       </div>
