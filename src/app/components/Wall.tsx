@@ -91,9 +91,10 @@ export default function Wall() {
         <List
             height={listHeight}
             itemCount={wall.postIds.length}
-            itemSize={500}
+            itemSize={900}
             width={'100%'}
             onItemsRendered={handleItemsRendered}
+            className="scrollbar-hide"
         >
             {Row}
         </List>

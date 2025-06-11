@@ -19,6 +19,7 @@ export default function TopNav() {
         <select
           value={1}
           className="bg-green-500 text-white placeholder-white text-sm px-4 py-1 rounded-full focus:outline-none w-48"
+          onChange={e => console.log("change company")}
         >
           <option value="1">Centara Group</option>
         </select>
@@ -28,7 +29,7 @@ export default function TopNav() {
       <div className="flex items-center space-x-6">
         <IconButton icon="home" />
         <IconButton icon="goal" />
-        <IconButton icon="house" />  
+        <IconButton icon="house" />
         <IconButton icon="group" />
         <IconButton icon="game" />
 

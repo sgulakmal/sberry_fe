@@ -26,6 +26,7 @@ export interface Post {
   author: UserSummary;
   content: string;
   mediaUrls?: string[]; // optional for images/videos
+  images?: string[]
   createdAt: string;
   updatedAt?: string;
 
