@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { Friend } from '@/lib/features/friends/types';
+import { useEffect, useState } from 'react';
 
 
 const month = new Date().getMonth() + 1; // 1-indexed
@@ -13,6 +14,19 @@ function isHighlightInThisMonth(dateStr?: string): boolean {
 
 export default function FriendList() {
   const friends = useSelector((state: RootState) => state.friends.friends);
+
+
+    //const [friends, setData] = useState(null);
+
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`);
+      const jsonData = await response.json();
+      setData(jsonData);
+    }
+    fetchData();
+  }, []);
 
   const birthdayFriends = friends.filter((f) => isHighlightInThisMonth(f.highlights.birthday));
   const workAnniversaryFriends = friends.filter((f) => isHighlightInThisMonth(f.highlights.workAnniversary));
@@ -36,12 +50,14 @@ export default function FriendList() {
   );
 
   return (
+    <div className="bg-white p-4 rounded-lg shadow">
     <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Friends - Monthly Highlights</h2>
+      <h2 className="text-xl font-bold mb-4">Monthly Highlights</h2>
       {renderGroup('🎂 Birthdays', birthdayFriends)}
       {renderGroup('🏢 Work Anniversaries', workAnniversaryFriends)}
       {renderGroup('🎓 Graduations', graduationFriends)}
       {renderGroup('👋 Farewells', farewellFriends)}
+    </div>
     </div>
   );
 }

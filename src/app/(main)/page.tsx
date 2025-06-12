@@ -9,6 +9,7 @@ import HeaderSearch from "../components/HeaderSearch";
 import Posts from "../components/Posts";
 import AnnouncementBanner from "../components/Announcements";
 import Wall from "../components/Wall";
+import FriendList from "../components/FriendList";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -35,8 +36,10 @@ export default function Home() {
     <div>
       {user.isLoggedIn ? (
         <>
-
+      <FriendList />
+      <AnnouncementBanner/>
           <Wall />
+    
 
         </>
       ) : (
