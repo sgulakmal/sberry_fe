@@ -36,8 +36,7 @@ export default function Home() {
     <div>
       {user.isLoggedIn ? (
         <>
-      <FriendList />
-      <AnnouncementBanner/>
+
           <Wall />
     
 

@@ -1,13 +1,25 @@
 import Image from 'next/image';
+import { IconButton } from '../utils/components/IconButton';
+import { useDispatch } from 'react-redux';
+import { triggerScrollToTop } from '@/lib/features/navigation/navigationSlice';
 
 export default function TopNav() {
+
+  const dispatch = useDispatch();
+
+  const handleMenuClick = (path: string) => {
+    if (path === 'home') {
+      dispatch(triggerScrollToTop());
+    }
+  }
+
   return (
     <div className="flex items-center justify-between bg-green-600 p-2 px-4 text-white">
       {/* Left Section */}
       <div className="flex items-center space-x-3">
         {/* Logo */}
         <Image
-          src="/strawberry.png" // replace with your actual image path
+          src="/images/logo.svg" // logo image path
           alt="Logo"
           width={32}
           height={32}
@@ -15,31 +27,32 @@ export default function TopNav() {
         />
 
         {/* Search bar */}
-        <input
-          type="text"
-          placeholder="Search"
+        <select
+          value={1}
           className="bg-green-500 text-white placeholder-white text-sm px-4 py-1 rounded-full focus:outline-none w-48"
-        />
+          onChange={() => console.log("change company")}
+        >
+          <option value="1">Centara Group</option>
+        </select>
       </div>
 
-      {/* Middle Icons */}
+      {/* Middle IconButtons */}
       <div className="flex items-center space-x-6">
-        <Icon icon="home" />
-        <Icon icon="trophy" />
-        <Icon icon="store" />
-        <Icon icon="paw" />
-        <Icon icon="gamepad" />
+        <IconButton icon="home" onClick={() => handleMenuClick('home')} />
+        <IconButton icon="goal" />
+        <IconButton icon="house" />
+        <IconButton icon="group" />
+        <IconButton icon="game" />
+
       </div>
 
       {/* Right Section */}
       <div className="flex items-center space-x-4">
-        <Icon icon="grid" />
-        <Icon icon="message-circle" />
-        <Icon icon="bell" />
+        <IconButton icon="notification" />
 
         {/* Avatar */}
         <Image
-          src="/avatar.jpg" // replace with actual avatar path
+          src="/images/user.png" // replace with actual avatar path
           alt="User"
           width={32}
           height={32}
@@ -50,10 +63,3 @@ export default function TopNav() {
   );
 }
 
-function Icon({ icon }: { icon: string }) {
-  return (
-    <button className="hover:bg-green-500 p-2 rounded-full">
-      <i className={`lucide lucide-${icon} text-white`}></i>
-    </button>
-  );
-}

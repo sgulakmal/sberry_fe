@@ -7,6 +7,7 @@ import friendReducer from './features/friends/friendSlice'
 import announcementReducer from './features/announcements/announcementsSlice'
 import wallReducer from './features/wall/wallSlice'
 import PostReducer from './features/post/postSlice'
+import NavigationReducer from './features/navigation/navigationSlice';
 
 export const makeStore = () => {
   return configureStore({
@@ -18,7 +19,8 @@ export const makeStore = () => {
       friends: friendReducer,
       announcement: announcementReducer,
       wall: wallReducer,
-      post: PostReducer
+      post: PostReducer,
+      navigation: NavigationReducer
     },
   })
 }

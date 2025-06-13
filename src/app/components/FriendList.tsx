@@ -23,7 +23,7 @@ export default function FriendList() {
     async function fetchData() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`);
       const jsonData = await response.json();
-      setData(jsonData);
+     // setData(jsonData);
     }
     fetchData();
   }, []);
