@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { WallState } from './types';
+import { WallItem, WallState } from './types';
 
 
 const initialState: WallState = {
-  postIds: [],
-  activePostId: undefined,
-  loading: true
+  wallItems: []
 };
 
 const wallSlice = createSlice({
@@ -14,16 +12,14 @@ const wallSlice = createSlice({
   reducers: {
     addPostsToWall: (
       state,
-      action: PayloadAction<{ postId: string, isNew?: boolean }>
+      action: PayloadAction<{ wallItem: WallItem, isNew?: boolean }>
     ) => {
-      const { postId, isNew } = action.payload;
+      const { wallItem, isNew } = action.payload;
       if (isNew) {
-        state.postIds.unshift(postId);
+        state.wallItems.unshift(wallItem);
       } else {
-        state.postIds.push(postId);
+        state.wallItems.push(wallItem);
       }
-
-      state.loading = false;
     },
   },
 });

@@ -1,6 +1,12 @@
+import { PostType } from "@/lib/enum/post";
 
 export interface WallState {
-  postIds: string[];
-  activePostId?: string,
-  loading: boolean
+  wallItems: WallItem[];
 }
+
+export interface WallItem {
+  postIds: string;
+  postType: PostType;
+}
+
+

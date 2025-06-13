@@ -61,7 +61,6 @@ addComment: (
     replies: [],
     replyInput: "",
   };
-  console.log("Adding comment to postId:", postId);
   state.commentsByPostId[postId] = [newComment, ...(state.commentsByPostId[postId] || [])];
 },
 

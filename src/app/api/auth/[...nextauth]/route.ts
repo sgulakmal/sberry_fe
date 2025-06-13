@@ -48,13 +48,11 @@ export const authOptions = {
                 token.accessToken = user.accessToken;
                 token.user = user; // Store full user data
             }
-            console.log('token', token)
             return token;
         },
         async session({ session, token }) {
             session.accessToken = token.accessToken;
             session.user = token.user; // Inject user data into session
-            console.log('session', session)
             return session;
         },
     },

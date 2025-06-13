@@ -6,6 +6,8 @@ import { setInitialPost } from '@/lib/features/post/postSlice';
 import { setInitialReaction } from '@/lib/features/reactions/reactionsSlice';
 import { AppDispatch } from "@/lib/store";
 import { Post } from "@/lib/features/post/types";
+import { WallItem } from "@/lib/features/wall/types";
+import { getPostType } from "@/app/utils/post";
 
 
 export const useAddPostToStore = () => {
@@ -13,7 +15,11 @@ export const useAddPostToStore = () => {
 
     return useCallback((posts: Post[], isNew?: boolean) => {
         posts.forEach(post => {
-            dispatch(addPostsToWall({ postId: post.postId, isNew }));
+            const wallItem: WallItem = {
+                postIds: post.postId,
+                postType: getPostType(post)
+            }
+            dispatch(addPostsToWall({ wallItem, isNew }));
             dispatch(setInitialPost({ postId: post.postId, post }));
             dispatch(setInitialReaction({ postId: post.postId, reactions: post.reactions }));
         });

@@ -19,7 +19,7 @@ export default function TopNav() {
   }
 
   return (
-    <div className="flex items-center justify-between bg-green-600 p-2 px-4 text-white">
+    <div className="flex items-center justify-between bg-[rgba(18,147,110,1)] p-2 px-4 text-white">
       {/* Left Section */}
       <div className="flex items-center space-x-3">
         {/* Logo */}
@@ -33,7 +33,7 @@ export default function TopNav() {
 
         <select
           value={1}
-          className="bg-green-500 text-white placeholder-white text-sm px-4 py-1 rounded-full focus:outline-none w-48"
+          className="bg-[rgba(18,147,110,1)] text-white placeholder-white text-sm px-4 py-1 rounded-full focus:outline-none w-48"
           onChange={() => console.log("change company")}
         >
           <option value="1">Centara Group</option>
