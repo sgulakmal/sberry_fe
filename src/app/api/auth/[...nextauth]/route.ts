@@ -1,3 +1,5 @@
+// app/api/auth/[...nextauth]/route.ts
+
 import { AuthUser, LoginResponse } from "@/lib/features/user/type";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -27,9 +29,9 @@ export const authOptions = {
 
                 if (res.ok && token && user?.userId) {
                     return {
-                        id: user.userId,
-                        accessToken: token, // ✅ fix: renamed from access_token to accessToken
-                        ...user,
+                        id: user.userId, // REQUIRED   
+                        access_token: token,
+                        ...user, // include the rest of your fields
                     };
                 }
 
@@ -38,19 +40,21 @@ export const authOptions = {
         }),
     ],
     session: {
-        strategy: "jwt", // ✅ uses JWT instead of database session
+        strategy: "jwt" as const,
     },
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
                 token.accessToken = user.accessToken;
-                token.user = user;
+                token.user = user; // Store full user data
             }
+            console.log('token', token)
             return token;
         },
         async session({ session, token }) {
             session.accessToken = token.accessToken;
-            session.user = token.user;
+            session.user = token.user; // Inject user data into session
+            console.log('session', session)
             return session;
         },
     },

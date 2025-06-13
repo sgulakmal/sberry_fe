@@ -5,7 +5,7 @@ export interface UserState {
 
 export interface LoginResponse {
   access_token: string;
-  user: User;
+  user?: User;
 }
 
 export interface User {

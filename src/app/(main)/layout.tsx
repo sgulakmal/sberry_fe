@@ -1,10 +1,12 @@
 'use client'
 
+import { useEffect, useState } from "react";
 // import type { Metadata } from "next";
 import StoreProvider from "../StoreProvider";
 import MainMenu from "../components/MainMenu";
 import TopNav from "../components/TopNav";
-import { SessionProvider } from 'next-auth/react';
+import { SessionProvider, signIn, useSession } from 'next-auth/react';
+import { AuthUser } from "@/lib/features/user/type";
 
 // export const metadata: Metadata = {
 //   title: "SBerry",
@@ -16,32 +18,50 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const { data: session, status } = useSession();
+  const [user, setUser] = useState<AuthUser>()
+
+  useEffect(() => {
+    if (session && session.user) {
+      setUser(session.user)
+    }
+  }, [session]);
+
+  if (status === "loading") return <p>Loading session...</p>;
+
+  if (!session) {
+    // Redirect to login manually (fallback)
+    if (typeof window !== 'undefined') {
+      signIn(undefined, { callbackUrl: '/' });
+    }
+    return <p>Redirecting to login...</p>;
+  }
+
   return (
 
     <>
-      <SessionProvider>
-        <StoreProvider>
-          <TopNav />
-          <div className="flex min-h-screen bg-gray-100 font-sans">
+      <StoreProvider>
+        <TopNav user={user} />
+        <div className="flex min-h-screen bg-gray-100 font-sans">
 
-            {/* Sidebar */}
-            <aside className="w-64 bg-white p-6 border-r">
-              <MainMenu />
-            </aside>
+          {/* Sidebar */}
+          <aside className="w-64 bg-white p-6 border-r">
+            <MainMenu />
+          </aside>
 
-            {/* Main content */}
-            <main className="flex-1 p-6">
-              {children}
-            </main>
+          {/* Main content */}
+          <main className="flex-1 p-6">
+            {children}
+          </main>
 
-            {/* Right sidebar */}
-            <aside className="w-64 p-6 space-y-4">
+          {/* Right sidebar */}
+          <aside className="w-64 p-6 space-y-4">
 
-            </aside>
+          </aside>
 
-          </div>
-        </StoreProvider>
-      </SessionProvider>
+        </div>
+      </StoreProvider>
     </>
 
   );
