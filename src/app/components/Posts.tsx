@@ -12,6 +12,7 @@ export default function Posts({ postId }) {
   const post: Post = useSelector((state: AppStore) => state.post.postByPostId[postId]);
   const reactions = useSelector((state: AppStore) => selectReactionsByPostId(state, postId));
   const [imageLoading, setImageLoading] = useState(true);
+  const [profilePictureUrl, setProfilePictureUrl] = useState(post.author.profilePictureUrl);
 
   // temp
   function getRandomImageForPost(): string {
@@ -37,15 +38,16 @@ export default function Posts({ postId }) {
         {/* Header */}
         <div className="flex items-start space-x-3">
           <Image
-            src="/images/user.png"
-            alt={post.author.name}
+            src={profilePictureUrl}
+            alt={post.author.username}
             className="w-10 h-10 rounded-full"
             width="40"
             height="40"
+            onError={() => setProfilePictureUrl("/images/default-user.png")} // fallback image
           />
           <div>
             <div className="flex items-center space-x-1 text-sm">
-              <span className="font-semibold">{post.author.name}</span>
+              <span className="font-semibold">{post.author.username}</span>
               <span className="text-gray-500">•</span>
               <span className="text-gray-500">5h</span>
               <span className="text-gray-400">🌐</span>
@@ -59,7 +61,7 @@ export default function Posts({ postId }) {
         </p>
 
         {/* Image */}
-        <div className="h-[600px] rounded-md overflow-hidden">
+        {post.images && <div className="h-[600px] rounded-md overflow-hidden">
           <Image
             src={getRandomImageForPost()}
             // src={post.images ? post.images[0] : "/images/sample_post.png"}
@@ -70,7 +72,7 @@ export default function Posts({ postId }) {
             className={`mx-auto block block transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
             onLoadingComplete={() => setImageLoading(false)}
           />
-        </div>
+        </div>}
 
         {/* Reactions & Comments */}
         <div className="flex items-center justify-between text-sm text-gray-600">

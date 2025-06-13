@@ -2,9 +2,11 @@ import { Visibility } from "@/lib/enum/post";
 import { ReactionSummary, ReactionType } from "../reactions/types";
 
 export interface UserSummary {
-  id: string;
-  name: string;
+  userId: string;
+  username: string;
   profilePictureUrl: string;
+  designation: string;
+  email: string,
 }
 
 interface CommentSummary {

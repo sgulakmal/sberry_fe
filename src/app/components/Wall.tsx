@@ -14,6 +14,8 @@ import { setInitialReaction } from '@/lib/features/reactions/reactionsSlice';
 import Posts from './Posts';
 import AnnouncementBanner from './Announcements';
 import { ScrollContainer } from '../utils';
+import api from '@/lib/services/axios';
+
 
 
 export default function Wall() {
@@ -55,8 +57,7 @@ export default function Wall() {
         isLoadingRef.current = true;
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`);
-            const posts: { items: Post[] } = await res.json();
+            const posts: { items: Post[] }  = await api.get('/posts?limit=20');
 
             if (posts.items.length === 0) {
                 setHasMore(false);

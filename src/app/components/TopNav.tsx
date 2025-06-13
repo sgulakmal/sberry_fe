@@ -3,8 +3,11 @@ import { IconButton } from '../utils/components/IconButton';
 import { useDispatch } from 'react-redux';
 import { triggerScrollToTop } from '@/lib/features/navigation/navigationSlice';
 import { AuthUser } from '@/lib/features/user/type';
+import { useState } from 'react';
 
-export default function TopNav({ user }: {user?: AuthUser}) {
+export default function TopNav({ user }: { user?: AuthUser }) {
+
+  const [profilePictureUrl, setProfilePictureUrl] = useState(user?.profilePictureUrl || '');
 
   const dispatch = useDispatch();
 
@@ -47,16 +50,17 @@ export default function TopNav({ user }: {user?: AuthUser}) {
       </div>
 
       {/* Right Section */}
-      { user && <div className="flex items-center space-x-4">
+      {user && <div className="flex items-center space-x-4">
         <IconButton icon="notification" />
 
         {/* Avatar */}
         <Image
-          src={user?.profilePictureUrl || ''}
+          src={profilePictureUrl}
           alt={user?.email || ''}
           width={32}
           height={32}
           className="rounded-full"
+          onError={() => setProfilePictureUrl("/images/default-user.png")} // fallback image
         />
       </div>
       }
