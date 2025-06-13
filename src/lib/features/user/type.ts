@@ -1,6 +1,5 @@
 export interface UserState {
-  isLoggedIn: boolean;
-  user: AuthUser;
+  user?: AuthUser;
 }
 
 export interface LoginResponse {
@@ -18,6 +17,7 @@ export interface User {
   isAdmin: boolean,
   companyId: string,
   companyBranchId: string,
+  designation: string
 }
 
 export interface AuthUser extends User {

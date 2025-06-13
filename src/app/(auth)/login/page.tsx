@@ -114,41 +114,4 @@ export default function LoginPage() {
 }
 
 
-// app/login/page.tsx
-// 'use client';
-
-// import { getCsrfToken } from "next-auth/react";
-// import { useEffect, useState } from "react";
-// import Head from "next/head";
-
-// export default function LoginPage() {
-//   const [csrfToken, setCsrfToken] = useState<string | undefined>();
-
-//   useEffect(() => {
-//     getCsrfToken().then(token => {
-//       setCsrfToken(token ?? undefined);
-//     });
-//   }, []);
-
-//   if (!csrfToken) return null; // or show loading spinner
-
-//   return (
-//     <form method="post" action="/api/auth/callback/credentials" className="space-y-4">
-//       <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-
-//       <div>
-//         <label>Email</label>
-//         <input name="email" type="email" required className="border px-2 py-1" />
-//       </div>
-
-//       <div>
-//         <label>Password</label>
-//         <input name="password" type="password" required className="border px-2 py-1" />
-//       </div>
-
-//       <button type="submit" className="bg-blue-600 text-white px-4 py-2">Login</button>
-//     </form>
-//   );
-// }
-
 

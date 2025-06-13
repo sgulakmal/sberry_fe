@@ -1,12 +1,14 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // import type { Metadata } from "next";
 import StoreProvider from "../StoreProvider";
 import MainMenu from "../components/MainMenu";
 import TopNav from "../components/TopNav";
-import { SessionProvider, signIn, useSession } from 'next-auth/react';
-import { AuthUser } from "@/lib/features/user/type";
+import { signIn, useSession } from 'next-auth/react';
+import { login } from "@/lib/features/user/userSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/lib/store";
 
 // export const metadata: Metadata = {
 //   title: "SBerry",
@@ -20,11 +22,11 @@ export default function RootLayout({
 }>) {
 
   const { data: session, status } = useSession();
-  const [user, setUser] = useState<AuthUser>()
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (session && session.user) {
-      setUser(session.user)
+      dispatch(login(session.user))
     }
   }, [session]);
 
@@ -41,9 +43,9 @@ export default function RootLayout({
   return (
 
     <>
-      <StoreProvider>
-        <TopNav user={user} />
-        <div className="flex min-h-screen bg-gray-100 font-sans">
+
+        <TopNav />
+        <div className="flex min-h-screen bg-gray-50 font-sans">
 
           {/* Sidebar */}
           <aside className="w-64 bg-white p-6 border-r">
@@ -61,7 +63,6 @@ export default function RootLayout({
           </aside>
 
         </div>
-      </StoreProvider>
     </>
 
   );

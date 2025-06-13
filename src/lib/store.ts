@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import authReducer from './features/user/userSlice'
 import reactionsReducer from './features/reactions/reactionsSlice'
 import commentsReducer from './features/comments/commentsSlice'
 import feedReducer from './features/feed/feedSlice'
@@ -11,6 +12,7 @@ import NavigationReducer from './features/navigation/navigationSlice';
 export const makeStore = () => {
   return configureStore({
     reducer: {
+      auth: authReducer,
       reactions: reactionsReducer,
       comments: commentsReducer,
       feed: feedReducer,

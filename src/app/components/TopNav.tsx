@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import { IconButton } from '../utils/components/IconButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { triggerScrollToTop } from '@/lib/features/navigation/navigationSlice';
-import { AuthUser } from '@/lib/features/user/type';
 import { useState } from 'react';
+import { AppStore } from '@/lib/type';
 
-export default function TopNav({ user }: { user?: AuthUser }) {
+export default function TopNav() {
 
+  const user = useSelector((state: AppStore) => state.auth.user);
   const [profilePictureUrl, setProfilePictureUrl] = useState(user?.profilePictureUrl || '');
 
   const dispatch = useDispatch();

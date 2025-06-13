@@ -14,10 +14,16 @@ const wallSlice = createSlice({
   reducers: {
     addPostsToWall: (
       state,
-      action: PayloadAction<string>
+      action: PayloadAction<{ postId: string, isNew?: boolean }>
     ) => {
-       state.postIds.push(action.payload);
-       state.loading = false;
+      const { postId, isNew } = action.payload;
+      if (isNew) {
+        state.postIds.unshift(postId);
+      } else {
+        state.postIds.push(postId);
+      }
+
+      state.loading = false;
     },
   },
 });
