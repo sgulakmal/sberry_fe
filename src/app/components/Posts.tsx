@@ -6,7 +6,6 @@ import { AppStore } from '@/lib/type';
 import { Post } from '@/lib/features/post/types';
 import Image from 'next/image';
 import { IconButton } from '../utils';
-import { selectReactionsByPostId } from '@/lib/features/reactions/reactionsSelectors';
 import { timeAgo } from '../utils/date';
 import { PostType } from '@/lib/enum/post';
 import { formatCount } from '../utils/number';

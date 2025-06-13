@@ -3,26 +3,15 @@ import { Announcement } from './types';
 
 
 interface AnnouncementState {
-  announcements: Announcement[];
+  data: Announcement[];
+    loading: boolean;
+  error: string | null;
 }
 
 const initialState: AnnouncementState = {
-  announcements: [
-    {
-      id: '1',
-      message: '🚀 New feature released: Dark Mode!',
-      postedBy: 'Admin',
-      rating: 4,
-      acknowledged: false,
-    },
-        {
-      id: '2',
-      message: '🚀 New feature released: Dark Mode!',
-      postedBy: 'Nuwan',
-      rating: 2,
-      acknowledged: false,
-    },
-  ],
+  data: [],
+    loading: false,
+  error: null,
 };
 
 const announcementSlice = createSlice({
@@ -30,13 +19,23 @@ const announcementSlice = createSlice({
   initialState,
   reducers: {
     acknowledgeAnnouncement(state, action: PayloadAction<string>) {
-      const ann = state.announcements.find(a => a.id === action.payload);
+      const ann = state.data.find(a => a.announcementId === action.payload);
       if (ann) {
-        ann.acknowledged = true;
+       // ann.acknowledged = true;
       }
     },
+    setemptyData(state, action: PayloadAction<any>) {
+          state.data = [];
+        
+        },
+
+        setAnnouncements(state, action: PayloadAction<any>) {
+          state.data.push( action.payload)
+           state.loading = false;
+        
+        },
   },
 });
 
-export const { acknowledgeAnnouncement } = announcementSlice.actions;
+export const { acknowledgeAnnouncement , setAnnouncements, setemptyData } = announcementSlice.actions;
 export default announcementSlice.reducer;

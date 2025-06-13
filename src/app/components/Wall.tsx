@@ -45,6 +45,7 @@ export default function Wall() {
     useEffect(() => {
         fetchPosts(page);
     }, [page]);
+    
 
     useEffect(() => {
         listRef.current?.scrollToItem(0, 'start');
