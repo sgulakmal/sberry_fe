@@ -2,9 +2,11 @@ import { Visibility } from "@/lib/enum/post";
 import { ReactionSummary, ReactionType } from "../reactions/types";
 
 export interface UserSummary {
-  id: string;
-  name: string;
+  userId: string;
+  username: string;
   profilePictureUrl: string;
+  designation: string;
+  email: string,
 }
 
 interface CommentSummary {
@@ -23,22 +25,27 @@ export interface Comment {
 
 export interface Post {
   postId: string;
+  isAnnouncement?: boolean;
+  companyId: string;
+  companyBranchId: string;
+  followers?: string[];
+  visibility?: Visibility;
+  isPinned?: boolean;
   author: UserSummary;
   content: string;
   mediaUrls?: string[]; // optional for images/videos
   images?: string[]
-  createdAt: string;
+  createdAt?: string;
   updatedAt?: string;
 
   // Extra display info
   lastComment?: CommentSummary; // last/latest comment
-  commentCount: number;
+  commentCount?: number;
 
   reactions: ReactionSummary;
 
   // Optionally
   isEdited?: boolean;
-  visibility: Visibility;
 }
 
 export interface PostState {

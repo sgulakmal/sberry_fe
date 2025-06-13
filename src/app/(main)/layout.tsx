@@ -1,10 +1,14 @@
 'use client'
 
+import { useEffect } from "react";
 // import type { Metadata } from "next";
 import StoreProvider from "../StoreProvider";
 import MainMenu from "../components/MainMenu";
 import TopNav from "../components/TopNav";
-
+import { signIn, useSession } from 'next-auth/react';
+import { login } from "@/lib/features/user/userSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/lib/store";
 
 // export const metadata: Metadata = {
 //   title: "SBerry",
@@ -16,13 +20,32 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const { data: session, status } = useSession();
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if (session && session.user) {
+      dispatch(login(session.user))
+    }
+  }, [session]);
+
+  if (status === "loading") return <p>Loading session...</p>;
+
+  if (!session) {
+    // Redirect to login manually (fallback)
+    if (typeof window !== 'undefined') {
+      signIn(undefined, { callbackUrl: '/' });
+    }
+    return <p>Redirecting to login...</p>;
+  }
+
   return (
 
     <>
 
-      <StoreProvider>
         <TopNav />
-        <div className="flex min-h-screen bg-gray-100 font-sans">
+        <div className="flex min-h-screen bg-gray-50 font-sans">
 
           {/* Sidebar */}
           <aside className="w-64 bg-white p-6 border-r">
@@ -40,7 +63,6 @@ export default function RootLayout({
           </aside>
 
         </div>
-      </StoreProvider>
     </>
 
   );

@@ -1,23 +1,23 @@
 'use client';
 
 import { VariableSizeList as List, ListOnItemsRenderedProps } from 'react-window';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Post } from '@/lib/features/post/types';
 import { WallState } from '@/lib/features/wall/types';
-import { addPostsToWall } from '@/lib/features/wall/wallSlice';
-import { AppDispatch } from '@/lib/store';
 import { AppStore } from '@/lib/type';
-import { setInitialPost } from '@/lib/features/post/postSlice';
-import { setInitialReaction } from '@/lib/features/reactions/reactionsSlice';
 import Posts from './Posts';
 import AnnouncementBanner from './Announcements';
 import { ScrollContainer } from '../utils';
+import api from '@/lib/services/axios';
+import WallHeader from './WallHeader';
+import { useAddPostToStore } from '@/lib/helper/hook/post';
+
 
 
 export default function Wall() {
-    const dispatch = useDispatch<AppDispatch>();
+    const addPostToStore = useAddPostToStore();
     const wall: WallState = useSelector((state: AppStore) => state.wall);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
@@ -50,25 +50,28 @@ export default function Wall() {
         listRef.current?.scrollToItem(0, 'start');
     }, [scrollSignal]); // fires every time signal is incremented
 
+    useEffect(() => {
+        listRef.current?.resetAfterIndex(0, true);
+    }, [wall.postIds]);
+
     const fetchPosts = async (page: number) => {
         if (isLoadingRef.current || !hasMore) return;
 
         isLoadingRef.current = true;
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}posts`);
-            const posts: { items: Post[] } = await res.json();
+            const posts: { items: Post[] } = await api.get('/posts?limit=20');
 
             if (posts.items.length === 0) {
                 setHasMore(false);
                 return;
             }
-
-            posts.items.forEach(post => {
-                dispatch(addPostsToWall(post.postId));
-                dispatch(setInitialPost({ postId: post.postId, post }));
-                dispatch(setInitialReaction({ postId: post.postId, reactions: post.reactions }));
-            });
+            addPostToStore(posts.items)
+            // posts.items.forEach(post => {
+            //     dispatch(addPostsToWall(post.postId));
+            //     dispatch(setInitialPost({ postId: post.postId, post }));
+            //     dispatch(setInitialReaction({ postId: post.postId, reactions: post.reactions }));
+            // });
 
             // Only mark ready after initial fetch
             if (!isReady) setIsReady(true);
@@ -103,7 +106,7 @@ export default function Wall() {
 
 
     return (
-        <div style={{ height: listHeight, width: '60vw' }}>
+        <div style={{ height: listHeight }}>
             <List
                 ref={listRef}
                 outerElementType={ScrollContainer}
@@ -116,7 +119,11 @@ export default function Wall() {
             >
                 {({ index, style }) => (
                     <div style={style}>
-                        {index === 0 && <AnnouncementBanner />}
+                        {index === 0 &&
+                            <div className="mb-12">
+                                <AnnouncementBanner />
+                                <WallHeader />
+                            </div>}
                         <Row index={index} />
                     </div>
                 )}

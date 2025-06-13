@@ -7,11 +7,13 @@ import { Post } from '@/lib/features/post/types';
 import Image from 'next/image';
 import { IconButton } from '../utils';
 import { selectReactionsByPostId } from '@/lib/features/reactions/reactionsSelectors';
+import { timeAgo } from '../utils/date';
 
 export default function Posts({ postId }) {
   const post: Post = useSelector((state: AppStore) => state.post.postByPostId[postId]);
   const reactions = useSelector((state: AppStore) => selectReactionsByPostId(state, postId));
   const [imageLoading, setImageLoading] = useState(true);
+  const [profilePictureUrl, setProfilePictureUrl] = useState(post.author.profilePictureUrl);
 
   // temp
   function getRandomImageForPost(): string {
@@ -29,6 +31,13 @@ export default function Posts({ postId }) {
     return images[(hash % images.length)];
   }
 
+  const testPostBgClasses = [
+    'from-blue-500 to-purple-600',
+    'from-pink-500 to-red-500',
+    'from-green-400 to-teal-500',
+    'from-yellow-400 to-orange-500',
+  ];
+
   return (
     (post && post.content ? <>
 
@@ -37,40 +46,52 @@ export default function Posts({ postId }) {
         {/* Header */}
         <div className="flex items-start space-x-3">
           <Image
-            src="/images/user.png"
-            alt={post.author.name}
+            src={profilePictureUrl}
+            alt={post.author.username}
             className="w-10 h-10 rounded-full"
             width="40"
             height="40"
+            onError={() => setProfilePictureUrl("/images/default-user.png")} // fallback image
           />
               <div>
             <div className="flex items-center space-x-1 text-sm">
-              <span className="font-semibold">{post.author.name}</span>
+              <span className="font-semibold">{post.author.username}</span>
               <span className="text-gray-500">•</span>
-              <span className="text-gray-500">5h</span>
+              <span className="text-gray-500">{timeAgo(post.createdAt)}</span>
               <span className="text-gray-400">🌐</span>
             </div>
           </div>
         </div>
 
-        {/* Post Text */}
-        <p className="text-sm text-gray-700">
-          {post.content}
-        </p>
 
-        {/* Image */}
-        <div className="h-[600px] rounded-md overflow-hidden">
-          <Image
-            src={getRandomImageForPost()}
-            // src={post.images ? post.images[0] : "/images/sample_post.png"}
-            alt={post.content}
-            // className="mx-auto block"
-            width="800"
-            height="350"
-            className={`mx-auto block block transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
-            onLoadingComplete={() => setImageLoading(false)}
-          />
-        </div>
+        {post.images && post.images.length > 0 ?
+          <>
+            <p className="text-sm text-gray-700">
+              {post.content}
+            </p>
+            <div className="h-[600px] rounded-md overflow-hidden">
+              <Image
+                src={getRandomImageForPost()}
+                // src={post.images ? post.images[0] : "/images/sample_post.png"}
+                alt={post.content}
+                // className="mx-auto block"
+                width="800"
+                height="350"
+                className={`mx-auto block block transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+                onLoadingComplete={() => setImageLoading(false)}
+              />
+            </div>
+          </> :
+
+          <div className="flex items-center justify-center h-screen">
+            <div className={`w-9/12 max-w-screen-sm h-96 bg-gradient-to-br ${testPostBgClasses} text-white text-2xl md:text-3xl font-semibold rounded-md p-6 shadow-md flex items-center justify-center text-center`}>
+              <div className='w-96'>
+                {post.content}
+              </div>
+            </div>
+          </div>
+        }
+
 
         {/* Reactions & Comments */}
         <div className="flex items-center justify-between text-sm text-gray-600">
@@ -94,7 +115,7 @@ export default function Posts({ postId }) {
 
           </div>
         </div>
-      </div>
+      </div >
 
 
 
