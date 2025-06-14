@@ -50,14 +50,71 @@ export default function FriendList() {
   );
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow">
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Monthly Highlights</h2>
-      {renderGroup('🎂 Birthdays', birthdayFriends)}
-      {renderGroup('🏢 Work Anniversaries', workAnniversaryFriends)}
-      {renderGroup('🎓 Graduations', graduationFriends)}
-      {renderGroup('👋 Farewells', farewellFriends)}
+<div className="bg-white rounded-xl border p-4 shadow-sm flex flex-col gap-2">
+    <div className="flex items-center mb-4">
+      <svg className="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6m-4-4h.01M21 12.2A9 9 0 112.6 9.6" />
+      </svg>
+      <h2 className="font-semibold text-gray-700">This Month Highlights</h2>
     </div>
-    </div>
+
+    <ul className="space-y-4">
+
+      <li className="flex items-start space-x-3">
+
+        <img src="/img/prof-img.png" className="w-10 h-10 rounded-full" alt="Anushka Sharma"/>
+        <div>
+          <p className="text-sm font-medium text-gray-800">Anushka Sharma</p>
+          <p className="text-sm text-gray-500">5 years anniversary, <span className="text-emerald-600">June, 10</span></p>
+        </div>
+       
+      </li>
+
+      <li className="flex items-start space-x-3">
+        <img src="/img/prof-img.png" className="w-10 h-10 rounded-full" alt="Alex Bernard"/>
+        <div>
+          <p className="text-sm font-medium text-gray-800">Alex Bernard</p>
+          <p className="text-sm text-gray-500">🎂 Birthday, <span className="text-emerald-600">June, 10</span></p>
+        </div>
+      
+      </li>
+
+      <li className="flex items-start space-x-3">
+        <img src="/img/prof-img.png" className="w-10 h-10 rounded-full" alt="Stephanie Jenson"/>
+        <div>
+          <p className="text-sm font-medium text-gray-800">Stephanie Jenson</p>
+          <p className="text-sm text-gray-500">Graduation, <span className="text-emerald-600">June, 15</span></p>
+        </div>
+   
+      </li>
+
+      <li className="flex items-start space-x-3">
+        <img src="/img/prof-img.png" className="w-10 h-10 rounded-full" alt="Jerad Osman"/>
+        <div>
+          <p className="text-sm font-medium text-gray-800">Jerad Osman</p>
+          <p className="text-sm text-gray-500">Farewell, <span className="text-emerald-600">June, 20</span></p>
+        </div>
+       
+      </li>
+
+      <li className="flex items-start space-x-3">
+        <img src="/img/prof-img.png" className="w-10 h-10 rounded-full" alt="Alex Bernard"/>
+        <div>
+          <p className="text-sm font-medium text-gray-800">Alex Bernard</p>
+          <p className="text-sm text-gray-500">🎂 Birthday, <span className="text-emerald-600">June, 10</span></p>
+        </div>
+   
+      </li>
+
+      <li className="flex items-start space-x-3">
+        <img src="/img/prof-img.png" className="w-10 h-10 rounded-full" alt="Stephanie Jenson"/>
+        <div>
+          <p className="text-sm font-medium text-gray-800">Stephanie Jenson</p>
+          <p className="text-sm text-gray-500">Graduation, <span className="text-emerald-600">June, 15</span></p>
+        </div>
+
+      </li>
+    </ul>
+  </div>
   );
 }

@@ -9,6 +9,7 @@ import { signIn, useSession } from 'next-auth/react';
 import { login } from "@/lib/features/user/userSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/store";
+import FriendList from "../components/FriendList";
 
 // export const metadata: Metadata = {
 //   title: "SBerry",
@@ -59,7 +60,7 @@ export default function RootLayout({
 
           {/* Right sidebar */}
           <aside className="w-64 p-6 space-y-4">
-
+<FriendList />
           </aside>
 
         </div>

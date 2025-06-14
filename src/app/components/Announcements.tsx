@@ -148,7 +148,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '@/lib/type';
 import Image from 'next/image';
 import { AppDispatch } from '@/lib/store';
-import { AnnouncementsState } from '@/lib/features/announcements/types';
+import { Announcement, AnnouncementsState } from '@/lib/features/announcements/types';
+import api from '@/lib/services/axios';
 
 // export interface Author {
 //   name: string;
@@ -247,22 +248,24 @@ const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
         async function fetchData() {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_DEV}announcement`, {
-       method: 'GET',
-       headers: {
-         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNDJiMjNkYS04ZTVhLTQ1ZWMtYWVkOC02NDY1MGQ5Y2E2OTQiLCJlbWFpbCI6Ikx1c2hhbi5KYXlhbmF0aEBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoibHVzaGFucCIsImlzQWRtaW4iOmZhbHNlLCJjb21wYW55SWQiOiJjb21wYW55LTEyMyIsImlhdCI6MTc0OTgzNzMxMiwiZXhwIjoxNzQ5OTIzNzEyfQ.xBNjTTe5icEIzs_O7B89G-DlIx1ZEoVYoPZ0Fq5mt4M',
-           'Content-Type': 'application/json',
-    'Accept': 'application/json'
-       },
-     });
+    //       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_DEV}announcement`, {
+    //    method: 'GET',
+    //    headers: {
+    //      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNDJiMjNkYS04ZTVhLTQ1ZWMtYWVkOC02NDY1MGQ5Y2E2OTQiLCJlbWFpbCI6Ikx1c2hhbi5KYXlhbmF0aEBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoibHVzaGFucCIsImlzQWRtaW4iOmZhbHNlLCJjb21wYW55SWQiOiJjb21wYW55LTEyMyIsImlhdCI6MTc0OTgzNzMxMiwiZXhwIjoxNzQ5OTIzNzEyfQ.xBNjTTe5icEIzs_O7B89G-DlIx1ZEoVYoPZ0Fq5mt4M',
+    //        'Content-Type': 'application/json',
+    // 'Accept': 'application/json'
+    //    },
+    //  });
 
-      
-          const data = await res.json();
 
-            data.items.forEach(anounce => {
-                 dispatch(setAnnouncements(anounce));
 
-                    });
+      const data: { items: Announcement[] } = await api.get('/announcement');
+    
+
+        
+                 dispatch(setAnnouncements(data));
+
+        
         
        
          // setData(data);
@@ -279,7 +282,7 @@ const dispatch = useDispatch<AppDispatch>();
   const announcement = announcement1.data[current];
   console.log('test dd',announcement1);
    console.log('test dd',announcement?.announcementId);
-  return ( announcement1 && announcement1.data.length !== 0 ?
+  return ( 
     <div className="w-full mx-auto bg-white border rounded shadow">
       {/* Header */}
       <div className="p-4 flex items-center gap-4">
@@ -337,7 +340,7 @@ const dispatch = useDispatch<AppDispatch>();
           Show all
         </a>
       </div>
-    </div> : <div></div>
+    </div> 
   );
 }
 
