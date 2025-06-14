@@ -233,8 +233,35 @@ export default function AnnouncementSlider() {
    //const wall: WallState = useSelector((state: AppStore) => state.wall);
 const dispatch = useDispatch<AppDispatch>();
      const handleAcknowledge = (id: string) => {
+
+
+//onSubmitPost(id)
+ 
      dispatch(acknowledgeAnnouncement(id));
   };
+
+
+//       const onSubmitPost = async (id) => {
+//        const acknowledge = {   announcementId: id,
+//   rating: 5,
+//   feedback: "Thanks for the "
+//             }
+
+
+// const po = await api.post('/announcement/acknowledge', acknowledge);
+
+   
+
+//     }
+
+
+
+
+
+
+
+
+
 
   const next = () => setCurrent((prev) => (prev + 1) % announcement1.data.length);
   const prev = () => setCurrent((prev) => (prev - 1 + announcement1.data.length) % announcement1.data.length);
@@ -259,7 +286,7 @@ const dispatch = useDispatch<AppDispatch>();
 
 
 
-      const data: { items: Announcement[] } = await api.get('/announcement');
+      const data: { count:number; items: Announcement[] } = await api.get('/announcement');
     
 
         
@@ -280,8 +307,7 @@ const dispatch = useDispatch<AppDispatch>();
 
 
   const announcement = announcement1.data[current];
-  console.log('test dd',announcement1);
-   console.log('test dd',announcement?.announcementId);
+
   return ( 
     <div className="w-full mx-auto bg-white border rounded shadow">
       {/* Header */}
@@ -306,7 +332,7 @@ const dispatch = useDispatch<AppDispatch>();
 
       {/* Content */}
       <div className="px-4 pb-4 text-gray-800">
-        <p>{announcement?.content}</p>
+        <p>{announcement?.description}</p>
       </div>
 
       {/* Acknowledge button */}

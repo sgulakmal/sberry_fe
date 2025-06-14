@@ -55,7 +55,7 @@ const WallHeader = () => {
                     onChange={(e) => setMessage(e.target.value)}
                 />
 
-                <button onClick={onSubmitPost} className="py-2 px-4  border border-transparent rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                <button onClick={onSubmitPost} className="py-2 px-4  border border-transparent rounded-md shadow-sm text-white bg-[rgba(18,147,110,1)] hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                     Post
                 </button>
             </div>

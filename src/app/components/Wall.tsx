@@ -13,6 +13,7 @@ import { ScrollContainer } from '../utils';
 import api from '@/lib/services/axios';
 import WallHeader from './WallHeader';
 import { useAddPostToStore } from '@/lib/helper/hook/post';
+import { PostType } from '@/lib/enum/post';
 
 
 
@@ -52,7 +53,7 @@ export default function Wall() {
 
     useEffect(() => {
         listRef.current?.resetAfterIndex(0, true);
-    }, [wall.postIds]);
+    }, [wall.wallItems]);
 
     const fetchPosts = async (page: number) => {
         if (isLoadingRef.current || !hasMore) return;
@@ -83,16 +84,18 @@ export default function Wall() {
 
     const handleItemsRendered = ({ visibleStopIndex }: ListOnItemsRenderedProps) => {
         const preloadThreshold = 5;
-        if (visibleStopIndex >= wall.postIds.length - preloadThreshold && hasMore) {
+        if (visibleStopIndex >= wall.wallItems.length - preloadThreshold && hasMore) {
             setPage(prev => prev + 1);
         }
     };
 
     const Row = ({ index }: { index: number }) => {
-        const postId = wall.postIds[index];
+        const postId = wall.wallItems[index].postIds;
+        const postType = wall.wallItems[index].postType;
         return (
-
-            <Posts postId={postId} />
+            <div>
+                <Posts postId={postId} postType={postType} />
+            </div>
 
         );
     };
@@ -101,7 +104,26 @@ export default function Wall() {
     if (!isReady) return <div>Loading Wall...</div>;
 
     const getItemSize = (index: number) => {
-        return index === 0 ? 1200 : 800;
+        const postType = wall.wallItems[index].postType;
+        const headerWallHight = 290;
+        let postHeight = 0;
+        switch (postType) {
+            case (PostType.image): {
+                postHeight = 700;
+                break
+            }
+            case (PostType.shortText): {
+                postHeight = 660;
+                break
+            }
+            case (PostType.longText): {
+                postHeight = 255;
+                break
+            }
+        }
+
+        return index === 0 ? (postHeight + headerWallHight) : postHeight
+
     };
 
 
@@ -111,7 +133,7 @@ export default function Wall() {
                 ref={listRef}
                 outerElementType={ScrollContainer}
                 height={listHeight}
-                itemCount={wall.postIds.length}
+                itemCount={wall.wallItems.length}
                 itemSize={getItemSize}
                 width="100%"
                 onItemsRendered={handleItemsRendered}

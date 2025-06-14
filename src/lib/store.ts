@@ -8,6 +8,7 @@ import announcementReducer from './features/announcements/announcementsSlice'
 import wallReducer from './features/wall/wallSlice'
 import PostReducer from './features/post/postSlice'
 import NavigationReducer from './features/navigation/navigationSlice';
+import upcommingcelebrationReduce from './features/upcomming/upcommingSlice'
 
 export const makeStore = () => {
   return configureStore({
@@ -20,7 +21,8 @@ export const makeStore = () => {
       announcement: announcementReducer,
       wall: wallReducer,
       post: PostReducer,
-      navigation: NavigationReducer
+      navigation: NavigationReducer,
+    celebrations: upcommingcelebrationReduce,
     },
   })
 }

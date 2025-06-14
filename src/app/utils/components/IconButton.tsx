@@ -26,7 +26,7 @@ export function IconButton({ icon, alt = '', size = 24, text, hoverComponent, on
           {hoverComponent}
         </div>
       )}
-      <button onClick={onClick} className="flex flex-row items-center gap-2 hover:bg-green-500 p-2 rounded-full">
+      <button onClick={onClick} className="flex flex-row items-center gap-2 hover:bg-[rgba(18,147,110,1)] p-2 rounded-full">
         <img
           src={`/icons/${icon}.svg`} // stored in public/icons/
           alt={alt}

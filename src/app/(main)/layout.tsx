@@ -10,6 +10,7 @@ import { login } from "@/lib/features/user/userSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/store";
 import FriendList from "../components/FriendList";
+import UpcommingCelebration from "../components/UpcommingCelebration";
 
 // export const metadata: Metadata = {
 //   title: "SBerry",
@@ -45,25 +46,30 @@ export default function RootLayout({
 
     <>
 
-        <TopNav />
-        <div className="flex min-h-screen bg-gray-50 font-sans">
+      <TopNav />
+      <div className="flex w-screen min-h-screen bg-gray-50 font-sans">
 
-          {/* Sidebar */}
-          <aside className="w-64 bg-white p-6 border-r">
-            <MainMenu />
-          </aside>
+        {/* Left Sidebar */}
+        <aside className="w-64 bg-white p-6 border-r">
+          <MainMenu />
+        </aside>
 
-          {/* Main content */}
-          <main className="flex-1 p-6">
+        {/* Main Content */}
+        <main className="flex-1 flex justify-center p-6">
+          <div className="w-full max-w-[700px]">
             {children}
-          </main>
+          </div>
+        </main>
 
-          {/* Right sidebar */}
-          <aside className="w-64 p-6 space-y-4">
-<FriendList />
-          </aside>
+        {/* Right Sidebar */}
+        <aside className="w-64 p-6 space-y-4 bg-white border-l">
+          {/* Right sidebar content */}
+          <UpcommingCelebration />
+          <FriendList />
+        </aside>
 
-        </div>
+      </div>
+
     </>
 
   );
