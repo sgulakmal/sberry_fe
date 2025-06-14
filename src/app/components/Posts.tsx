@@ -79,8 +79,8 @@ function Posts({ postId, postType }: { postId: string, postType: PostType }) {
 
       {postType === PostType.shortText && (
         <div className="relative flex-1 flex justify-center h-[450px] rounded-md overflow-hidden">
-          <div className={`w-9/12 max-w-screen-sm bg-gradient-to-br ${testPostBgClasses} text-white text-2xl md:text-3xl font-semibold rounded-md p-6 shadow-md flex items-center justify-center text-center`}>
-            <div className="w-96">{post.content}</div>
+          <div className={`bg-gradient-to-br ${testPostBgClasses} text-white text-2xl md:text-3xl font-semibold rounded-md p-6 shadow-md flex items-center justify-center text-center`}>
+            <div className="w-[610]">{post.content}</div>
           </div>
         </div>
       )}

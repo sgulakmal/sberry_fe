@@ -45,7 +45,7 @@ export default function Wall() {
     useEffect(() => {
         fetchPosts(page);
     }, [page]);
-    
+
 
     useEffect(() => {
         listRef.current?.scrollToItem(0, 'start');
@@ -61,18 +61,14 @@ export default function Wall() {
         isLoadingRef.current = true;
 
         try {
-            const posts: { items: Post[] } = await api.get('/posts?limit=20');
+            const posts: { items: Post[], nextToken } = await api.get(`/posts?limit=20${wall.nextToken ? `&nextToken=${wall.nextToken}` : ''}`);
 
             if (posts.items.length === 0) {
                 setHasMore(false);
                 return;
             }
-            addPostToStore(posts.items)
-            // posts.items.forEach(post => {
-            //     dispatch(addPostsToWall(post.postId));
-            //     dispatch(setInitialPost({ postId: post.postId, post }));
-            //     dispatch(setInitialReaction({ postId: post.postId, reactions: post.reactions }));
-            // });
+
+            addPostToStore(posts.items, false, posts.nextToken)
 
             // Only mark ready after initial fetch
             if (!isReady) setIsReady(true);
