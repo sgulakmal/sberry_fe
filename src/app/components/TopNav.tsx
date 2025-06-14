@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { triggerScrollToTop } from '@/lib/features/navigation/navigationSlice';
 import { useState } from 'react';
 import { AppStore } from '@/lib/type';
+import React from 'react';
 
-export default function TopNav() {
+const TopNav = () => {
 
   const user = useSelector((state: AppStore) => state.auth.user);
   const [profilePictureUrl, setProfilePictureUrl] = useState(user?.profilePictureUrl || '');
@@ -23,13 +24,13 @@ export default function TopNav() {
       {/* Left Section */}
       <div className="flex items-center space-x-3">
         {/* Logo */}
-        <Image
+        {/* <Image
           src="/images/logo.svg" // logo image path
           alt="Logo"
           width={32}
           height={32}
           className="rounded-full"
-        />
+        /> */}
 
         <select
           value={1}
@@ -55,17 +56,20 @@ export default function TopNav() {
         <IconButton icon="notification" />
 
         {/* Avatar */}
-        <Image
+        { profilePictureUrl && <Image
           src={profilePictureUrl}
           alt={user?.email || ''}
           width={32}
           height={32}
           className="rounded-full"
           onError={() => setProfilePictureUrl("/images/default-user.png")} // fallback image
-        />
+        /> }
       </div>
       }
     </div>
   );
 }
+
+// Memoize component to avoid unnecessary re-renders
+export default React.memo(TopNav);
 

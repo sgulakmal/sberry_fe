@@ -12,13 +12,14 @@ const wallSlice = createSlice({
   reducers: {
     addPostsToWall: (
       state,
-      action: PayloadAction<{ wallItem: WallItem, isNew?: boolean }>
+      action: PayloadAction<{ wallItem: WallItem, isNew?: boolean, nextToken?: string }>
     ) => {
-      const { wallItem, isNew } = action.payload;
+      const { wallItem, isNew, nextToken } = action.payload;
       if (isNew) {
         state.wallItems.unshift(wallItem);
       } else {
         state.wallItems.push(wallItem);
+        state.nextToken = nextToken;
       }
     },
   },

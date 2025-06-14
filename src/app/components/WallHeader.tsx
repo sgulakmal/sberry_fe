@@ -31,7 +31,7 @@ const WallHeader = () => {
             }
 
             const post: Post = await api.post('/posts', newPost);
-            addPostToStore([post]);
+            addPostToStore([post], true);
 
         }
 
@@ -60,15 +60,15 @@ const WallHeader = () => {
                 </button>
             </div>
             <div className="flex justify-center items-center border-t px-6 py-3 bg-[rgba(0,0,0,0.03)]">
-                <button className="mr-7 flex flex-col items-center text-sm text-gray-700 hover:text-blue-600">
+                <div className="mr-7 flex flex-col items-center text-sm text-gray-700 hover:text-blue-600">
                     <IconButton icon="nominate" text="Nominate" />
-                </button>
-                <button className="mr-7 flex flex-col items-center text-sm text-gray-700 hover:text-blue-600">
+                </div>
+                <div className="mr-7 flex flex-col items-center text-sm text-gray-700 hover:text-blue-600">
                     <IconButton icon="award" text="Award" />
-                </button>
-                <button className="mr-7 flex flex-col items-center text-sm text-gray-700 hover:text-blue-600">
+                </div>
+                <div className="mr-7 flex flex-col items-center text-sm text-gray-700 hover:text-blue-600">
                     <IconButton icon="announce" text="Announce" />
-                </button>
+                </div>
             </div>
         </div>
     );
