@@ -27,19 +27,34 @@ const upcommingSlice = createSlice({
       userId: '1',
       name: 'Jane Doe',
       avatarUrl: '/img/prof-img.png',
-      celebrationName: 'birthday'
+      celebrationName: 'birthday',
+      celebrationDate: new Date("2025-06-16"),
     },
     {
       userId: '2',
       name: 'John Smith',
       avatarUrl: '/img/prof-img.png',
-      celebrationName: 'birthday'
+      celebrationName: 'birthday',
+      celebrationDate: new Date("2025-06-22"),
+    },    {
+      userId: '2',
+      name: 'Edvin All',
+      avatarUrl: '/img/prof-img.png',
+      celebrationName: 'Anniversary',
+      celebrationDate: new Date("2025-03-22"),
+    }, {
+      userId: '2',
+      name: 'Dilantha Perera',
+      avatarUrl: '/img/prof-img.png',
+      celebrationName: 'birthday',
+      celebrationDate: new Date("2025-06-15"),
     },
     {
       userId: '3',
       name: 'Alice Johnson',
       avatarUrl: '/img/prof-img.png',
       celebrationName: 'birthday',
+      celebrationDate: new Date("2025-06-18"),
 }]                        //action.payload;
     },
   },

@@ -38,3 +38,31 @@ export function timeAgo(date?: Date | string): string {
     const years = Math.floor(days / 365);
     return `${years} year${years !== 1 ? 's' : ''} ago`;
 }
+
+
+
+
+export function formatCelebrationDate(date: Date): string {
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+
+  // Normalize times to compare only the date parts
+  const normalize = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const inputDate = normalize(date);
+  const todayDate = normalize(today);
+  const tomorrowDate = normalize(tomorrow);
+
+  if (inputDate.getTime() === todayDate.getTime()) {
+    return "Today";
+  }
+
+  if (inputDate.getTime() === tomorrowDate.getTime()) {
+    return "Tomorrow";
+  }
+
+  // Format as "12 June"
+  const day = inputDate.getDate();
+  const month = inputDate.toLocaleString("default", { month: "long" });
+  return `${day} ${month}`;
+}

@@ -5,6 +5,7 @@ export interface UpcommingCelebration {
   name: string;
   avatarUrl: string | null;
   celebrationName: string;
+  celebrationDate: Date;
 }
 
 
