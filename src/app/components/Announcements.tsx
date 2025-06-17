@@ -313,7 +313,7 @@ const dispatch = useDispatch<AppDispatch>();
       {/* Header */}
       <div className="p-4 flex items-center gap-4">
           <Image src="/img/prof-img.png"
-            alt={announcement?.createdBy.profilePictureUrl} 
+            alt="Profile Image"
       
              className="w-10 h-10 rounded-full"
             width="40"
@@ -337,10 +337,10 @@ const dispatch = useDispatch<AppDispatch>();
 
       {/* Acknowledge button */}
       <div className="px-4 pb-4">
-        <button  onClick={() => handleAcknowledge(announcement?.announcementId)} className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded flex items-center gap-2">
+        <div  onClick={() => handleAcknowledge(announcement?.announcementId)} className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded flex items-center gap-2">
            <IconButton icon="acknow" ></IconButton>
           Acknowledge
-        </button>
+        </div>
       </div>
 
       {/* Footer (Navigation + Show all) */}

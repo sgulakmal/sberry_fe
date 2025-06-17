@@ -28,9 +28,12 @@ export default function RootLayout({
 
   useEffect(() => {
     if (session && session.user) {
+      // const selectedOrganizer = localStorage.getItem('SELECTED_ORGANIZATION')
       dispatch(login(session.user))
     }
   }, [session]);
+
+  //     router.push('/'); // Redirect to home
 
   if (status === "loading") return <p>Loading session...</p>;
 
