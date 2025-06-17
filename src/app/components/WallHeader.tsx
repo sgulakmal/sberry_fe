@@ -16,7 +16,7 @@ const WallHeader = () => {
     const [profilePictureUrl, setProfilePictureUrl] = useState(user?.profilePictureUrl);
     const [message, setMessage] = useState<string>();
     const addPostToStore = useAddPostToStore();
-    const [openPostCreate, setOpenPostCreate] = useState(true);
+    const [openPostCreate, setOpenPostCreate] = useState(false);
 
     const onSubmitPost = async () => {
         if (user && message) {
