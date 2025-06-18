@@ -9,6 +9,10 @@ import { NavigationState } from "./features/navigation/types";
 import { FeedState } from "./features/Feed/types";
 
 import { AnnouncementsState } from "./features/announcements/types";
+import { AnnouncementsStatisticState } from "./features/annonceStatistic/types";
+import { UpcommingState } from "./features/upcomming/types";
+import { AnnouncementListState } from "./features/announcementList/types";
+import { PointsState } from "./features/wallet/types";
 
 
 export interface AppStore {
@@ -21,4 +25,10 @@ export interface AppStore {
     post: PostState;
     navigation: NavigationState;
     announcement: AnnouncementsState;
+        announcementStatistic: AnnouncementsStatisticState;
+       celebrations :UpcommingState;
+            announcementList :AnnouncementListState;
+            points : PointsState;
+
+
 }

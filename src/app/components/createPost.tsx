@@ -1,5 +1,5 @@
 'use client';
-
+ 
 import { AppStore } from '@/lib/type';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -57,7 +57,7 @@ export default function CreatePost() {
           </p>
         </div>
       </div>
-
+ 
       {/* Textarea */}
       <TextArea placeholder={`What's on your mind, ${user?.firstName}?`} onTextChange={setPostText} />
 

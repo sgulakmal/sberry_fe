@@ -19,3 +19,9 @@ export enum PostType {
     image = 'image',
     video = 'video'
 }
+
+
+export enum TransactionType {
+    earned = 'earned',
+    redeemed = 'redeemed',
+}

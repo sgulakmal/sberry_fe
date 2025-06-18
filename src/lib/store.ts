@@ -2,13 +2,16 @@ import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './features/user/userSlice'
 import reactionsReducer from './features/reactions/reactionsSlice'
 import commentsReducer from './features/comments/commentsSlice'
-import feedReducer from './features/feed/feedSlice'
+import feedReducer from './features/Feed/feedSlice'
 import friendReducer from './features/friends/friendSlice'
 import announcementReducer from './features/announcements/announcementsSlice'
 import wallReducer from './features/wall/wallSlice'
 import PostReducer from './features/post/postSlice'
 import NavigationReducer from './features/navigation/navigationSlice';
 import upcommingcelebrationReduce from './features/upcomming/upcommingSlice'
+import statisticsReducer from './features/annonceStatistic/announcementsSlice'
+import announcementListReducer from './features/announcementList/announcementsListSlice'
+import pointsReducer from './features/wallet/walletSlice'
 
 export const makeStore = () => {
   return configureStore({
@@ -22,7 +25,10 @@ export const makeStore = () => {
       wall: wallReducer,
       post: PostReducer,
       navigation: NavigationReducer,
-    celebrations: upcommingcelebrationReduce,
+      celebrations: upcommingcelebrationReduce,
+       announcementStatistic: statisticsReducer,
+       announcementList: announcementListReducer,
+       points: pointsReducer, 
     },
   })
 }

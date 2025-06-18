@@ -1,13 +1,14 @@
 'use client'
-
+ 
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AppStore } from '@/lib/type';
 import Image from 'next/image';
 import { IconButton } from '../utils';
 import DialogPopup from '../utils/components/DalogPopup';
-import CreatePost from './CreatePost';
+import CreatePost from './createPost';
 
+ 
 const WallHeader = () => {
     const user = useSelector((state: AppStore) => state.auth.user);
     const [profilePictureUrl, setProfilePictureUrl] = useState(user?.profilePictureUrl);
@@ -31,7 +32,7 @@ const WallHeader = () => {
                     className="w-full bg-[rgba(0,0,0,0.03)] rounded-3xl px-4 py-2 text-sm text-gray-700 resize-none outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                     placeholder={`${user?.firstName}, Let's cheer someone up today!`}
                 />
-
+ 
                 <button onClick={() => setOpenPostCreate(true)} className="py-2 px-4  border border-transparent rounded-md shadow-sm text-white bg-[rgba(18,147,110,1)] hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                     Post
                 </button>
@@ -47,13 +48,13 @@ const WallHeader = () => {
                     <IconButton icon="announce" text="Announce" />
                 </div>
             </div>
-
+ 
             <DialogPopup isOpen={openPostCreate} onClose={() => setOpenPostCreate(false)} title="Create post">
                {<CreatePost />}
             </DialogPopup>
-
+ 
         </div>
     );
 };
-
+ 
 export default WallHeader;
