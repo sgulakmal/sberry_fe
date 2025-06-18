@@ -9,11 +9,13 @@ import { IconButton } from '../utils';
 import { timeAgo } from '../utils/date';
 import { PostType } from '@/lib/enum/post';
 import { formatCount } from '../utils/number';
+import DOMPurify from 'dompurify';
 
 function Posts({ postId, postType }: { postId: string, postType: PostType }) {
   const post: Post = useSelector((state: AppStore) => state.post.postByPostId[postId]);
   const [imageLoading, setImageLoading] = useState(true);
   const [profilePictureUrl, setProfilePictureUrl] = useState(post?.author?.profilePictureUrl);
+  const safeHTML = DOMPurify.sanitize(post.content);
 
   function getRandomImageForPost(): string {
     const images: string[] = [
@@ -64,7 +66,7 @@ function Posts({ postId, postType }: { postId: string, postType: PostType }) {
       {/* Content */}
       {postType === PostType.image && (
         <>
-          <p className="text-sm text-gray-700">{post.content}</p>
+          <div className="text-sm text-gray-700" dangerouslySetInnerHTML={{ __html: safeHTML }}></div>
           <div className="relative h-[450px] rounded-md overflow-hidden">
             <Image
               src={getRandomImageForPost()}
@@ -77,16 +79,16 @@ function Posts({ postId, postType }: { postId: string, postType: PostType }) {
         </>
       )}
 
-      {postType === PostType.shortText && (
+      {/* {postType === PostType.shortText && (
         <div className="relative flex-1 flex justify-center h-[450px] rounded-md overflow-hidden">
           <div className={`bg-gradient-to-br ${testPostBgClasses} text-white text-2xl md:text-3xl font-semibold rounded-md p-6 shadow-md flex items-center justify-center text-center`}>
             <div className="w-[610]">{post.content}</div>
           </div>
         </div>
-      )}
+      )} */}
 
-      {postType === PostType.longText && (
-        <p className="h-[50px] max-h-[50px] line-clamp-3">{post.content}</p>
+      {(postType === PostType.longText || postType === PostType.shortText) && (
+        <div className="h-[50px] max-h-[50px] line-clamp-3" dangerouslySetInnerHTML={{ __html: safeHTML }}></div>
       )}
 
       {/* Reactions & Comments */}

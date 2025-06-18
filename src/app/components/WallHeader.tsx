@@ -5,40 +5,15 @@ import { useSelector } from 'react-redux';
 import { AppStore } from '@/lib/type';
 import Image from 'next/image';
 import { IconButton } from '../utils';
-import { Post } from '@/lib/features/post/types';
-import api from '@/lib/services/axios';
-import { useAddPostToStore } from '@/lib/helper/hook/post';
 import DialogPopup from '../utils/components/DalogPopup';
 import CreatePost from './CreatePost';
 
 const WallHeader = () => {
     const user = useSelector((state: AppStore) => state.auth.user);
     const [profilePictureUrl, setProfilePictureUrl] = useState(user?.profilePictureUrl);
-    const [message, setMessage] = useState<string>();
-    const addPostToStore = useAddPostToStore();
     const [openPostCreate, setOpenPostCreate] = useState(false);
 
-    const onSubmitPost = async () => {
-        if (user && message) {
-            const newPost = { // Need to finaliz with backend
-                companyId: user.companyId,
-                companyBranchId: user.companyBranchId,
-                author: {
-                    userId: user.id,
-                    email: user.email,
-                    username: user.username,
-                    designation: user.designation || 'User',
-                    profilePictureUrl: user.profilePictureUrl,
-                },
-                content: message
-            }
 
-            const post: Post = await api.post('/posts', newPost);
-            addPostToStore([post], true);
-
-        }
-
-    }
 
     return (
         <div className="max-w mx-auto rounded-lg shadow border overflow-hidden bg-[rgba(0,0,0,0.03)]">
@@ -55,7 +30,6 @@ const WallHeader = () => {
                     rows={2}
                     className="w-full bg-[rgba(0,0,0,0.03)] rounded-3xl px-4 py-2 text-sm text-gray-700 resize-none outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                     placeholder={`${user?.firstName}, Let's cheer someone up today!`}
-                    onChange={(e) => setMessage(e.target.value)}
                 />
 
                 <button onClick={() => setOpenPostCreate(true)} className="py-2 px-4  border border-transparent rounded-md shadow-sm text-white bg-[rgba(18,147,110,1)] hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">

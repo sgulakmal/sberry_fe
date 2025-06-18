@@ -101,7 +101,7 @@ export default function Wall() {
 
     const getItemSize = (index: number) => {
         const postType = wall.wallItems[index].postType;
-        const headerWallHight = 290;
+        const headerWallHight = 500;
         let postHeight = 0;
         switch (postType) {
             case (PostType.image): {
@@ -109,11 +109,11 @@ export default function Wall() {
                 break
             }
             case (PostType.shortText): {
-                postHeight = 660;
+                postHeight = 255
                 break
             }
             case (PostType.longText): {
-                postHeight = 255;
+                postHeight = 300;
                 break
             }
         }

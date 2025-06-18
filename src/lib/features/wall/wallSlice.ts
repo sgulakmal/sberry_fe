@@ -16,7 +16,7 @@ const wallSlice = createSlice({
     ) => {
       const { wallItem, isNew, nextToken } = action.payload;
       if (isNew) {
-        state.wallItems.unshift(wallItem);
+        state.wallItems = [...[wallItem], ...state.wallItems];
       } else {
         state.wallItems.push(wallItem);
         state.nextToken = nextToken;

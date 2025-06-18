@@ -67,7 +67,7 @@ export default function RootLayout({
         {/* Right Sidebar */}
         <aside className="w-64 p-6 space-y-4 bg-white border-l">
           {/* Right sidebar content */}
-          <UpcommingCelebration />
+          {/* <UpcommingCelebration /> */}
         </aside>
 
       </div>

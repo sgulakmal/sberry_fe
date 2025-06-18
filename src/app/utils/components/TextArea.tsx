@@ -1,69 +1,89 @@
 import { useRef, useState } from "react";
 
-// Mock user list for mentions
-const firstNames = ["Lakmal", "Damith", "Dilantha", "Nuwan", "Lushan", "Kamal", "Ruwan", "Chathura", "Suresh",
-    "Pradeep", "Anura", "Janaka", "Sanjaya", "Asela", "Isuru", "Roshan", "Mahesh", "Harsha", "Nadeesha", "Upul"];
+// Mock user list
+const firstNames = ["Lakmal", "Damith", "Dilantha", "Nuwan", "Lushan", "Kamal", "Ruwan", "Chathura", "Suresh", "Pradeep", "Anura", "Janaka", "Sanjaya", "Asela", "Isuru", "Roshan", "Mahesh", "Harsha", "Nadeesha", "Upul"];
+const lastNames = ["Siyambalage", "Premarathna", "Perera", "Madushanka", "Jayanath", "Fernando", "Silva", "Bandara", "Gunasekara", "Jayasinghe", "Abeysekera", "Ratnayake", "Weerasinghe", "Senanayake", "Herath", "Dissanayake", "Ekanayake", "Wickramasinghe", "Munasinghe", "Ranasinghe"];
 
-const lastNames = ["Siyambalage", "Premarathna", "Perera", "Madushanka", "Jayanath", "Fernando", "Silva", "Bandara",
-    "Gunasekara", "Jayasinghe", "Abeysekera", "Ratnayake", "Weerasinghe", "Senanayake", "Herath",
-    "Dissanayake", "Ekanayake", "Wickramasinghe", "Munasinghe", "Ranasinghe"];
-
-// Generate 1000 random full names
 const mentionUsers: string[] = [];
 for (let i = 0; i < 1000; i++) {
-    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-    mentionUsers.push(`${firstName} ${lastName}`);
+    const first = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const last = lastNames[Math.floor(Math.random() * lastNames.length)];
+    mentionUsers.push(`${first} ${last}`);
 }
 
-type TextAreaProps = {
+type Props = {
     placeholder?: string;
-    value: string;
     onTextChange?: (value: string) => void;
 };
 
-export function TextArea({ placeholder, value, onTextChange: textChange }: TextAreaProps) {
+export function TextArea({ placeholder, onTextChange }: Props) {
     const [mentionQuery, setMentionQuery] = useState('');
     const [filteredUsers, setFilteredUsers] = useState<string[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [highlightIndex, setHighlightIndex] = useState(0);
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [mentionMode, setMentionMode] = useState(false);
+    const [newHashtag, setNewHashtag] = useState('');
+    const [newAmount, setNewAmount] = useState('');
 
-    const setText = (value: string) => {
-        if (textChange) textChange(value);
+    const contentRef = useRef<HTMLDivElement>(null);
+
+    const getTextContent = () => contentRef.current?.innerText || '';
+
+    const userPattern = /@([\w\s]*)$/;
+    const hashtagPattern = /#(\w*)$/;
+    const amountPattern = /\+(\d+)\b/;
+
+    const setText = () => {
+        if (onTextChange) onTextChange(contentRef.current?.innerHTML || ''); // Pass html content to parent
     };
 
-    const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const val = e.target.value;
-        setText(val);
+    const handleInput = () => {
 
-        if(val && val.endsWith("  "))
-            return; // Stop search option
+         setText();
 
-        const cursorPosition = e.target.selectionStart;
-        const textUntilCursor = val.slice(0, cursorPosition);
-        const match = textUntilCursor.match(/@([\w\s]*)$/);
+        const text = getTextContent();
 
-        if (match) {
-            const queryRaw = match[1].trim(); // get the full query after "@"
-            const parts = queryRaw.split(/\s+/); // split by spaces
+        if (text.endsWith("  "))
+            return;
+
+
+        const sel = window.getSelection();
+        if (!sel || !sel.anchorNode) return;
+
+        const range = sel.getRangeAt(0);
+        const precedingText = range.startContainer.textContent?.slice(0, range.startOffset) || '';
+
+        const matchHashtag = precedingText.match(hashtagPattern);
+        if (matchHashtag) {
+            setNewHashtag(matchHashtag[0]);
+        }
+
+        const matchAmount = precedingText.match(amountPattern);
+        if (matchAmount) {
+            setNewAmount(matchAmount[0]);
+        }
+
+
+
+        const matchUser = precedingText.match(userPattern);
+        if (matchUser && !mentionMode) {
+            const queryRaw = matchUser[1].trim();
+            const parts = queryRaw.split(/\s+/);
 
             if (parts.length <= 2) {
                 const query = queryRaw.toLowerCase();
                 setMentionQuery(query);
 
-                const filtered = mentionUsers.filter((user) => {
-                    const userLower = user.toLowerCase();
-                    return query
+                const filtered = mentionUsers.filter(user =>
+                    query
                         .split(" ")
-                        .every(part => userLower.includes(part));
-                });
+                        .every(part => user.toLowerCase().includes(part))
+                );
 
                 setFilteredUsers(filtered);
                 setShowDropdown(filtered.length > 0);
                 setHighlightIndex(0);
             } else {
-                // More than two words: cancel mention mode
                 setShowDropdown(false);
             }
         } else {
@@ -71,19 +91,85 @@ export function TextArea({ placeholder, value, onTextChange: textChange }: TextA
         }
     };
 
+    const highlightText = (hlText: string, pattern: RegExp) => {
+        const sel = window.getSelection();
+        if (!sel || !sel.rangeCount) return;
 
-    const handleMentionSelect = (username: string) => {
-        const cursor = textareaRef.current?.selectionStart || 0;
-        const before = value.slice(0, cursor).replace(/@([\w\s]*)$/, `@${username} `);
-        const after = value.slice(cursor);
+        const range = sel.getRangeAt(0);
+        const container = range.startContainer;
+        const cursorPos = range.startOffset;
 
-        setText(before + after);
+        const text = container.textContent || '';
+        const textBeforeCursor = text.slice(0, cursorPos);
+        const match = textBeforeCursor.match(pattern);
+
+        if (!match) return;
+
+        const highlightStart = match.index ?? 0;
+        const highlightEnd = cursorPos;
+
+        // Remove search text text
+        const updatedText = text.slice(0, highlightStart) + text.slice(highlightEnd);
+        container.textContent = updatedText;
+
+        // Create a new range at the mentionStart position
+        const newRange = document.createRange();
+        newRange.setStart(container, highlightStart);
+        newRange.setEnd(container, highlightStart);
+        sel.removeAllRanges();
+        sel.addRange(newRange);
+
+        // Create highlight <a> node
+        const a = document.createElement("a");
+        a.href = "#";
+        a.textContent = `${hlText}`;
+        if (pattern === userPattern) {
+            a.className = "text-blue-600 font-medium";
+        } else if (pattern === hashtagPattern) {
+            a.className = "text-purple-600 font-medium";
+        } else if (pattern === amountPattern) {
+            a.className = "text-red-600 font-medium";
+        }
+
+
+        // Add non-breaking space after highlight
+        const space = document.createTextNode("\u00A0");
+
+        // Insert the elements
+        newRange.insertNode(space);
+        newRange.insertNode(a);
+
+        // Move cursor after the inserted space
+        newRange.setStartAfter(space);
+        newRange.setEndAfter(space);
+        sel.removeAllRanges();
+        sel.addRange(newRange);
+
         setShowDropdown(false);
-        setMentionQuery('');
-        textareaRef.current?.focus();
+        setMentionMode(true);
+        setTimeout(() => setMentionMode(false), 100);
+
+        setText(); // Send value to parent
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const insertTag = () => {
+        if (newHashtag) {
+            highlightText(newHashtag, hashtagPattern);
+            setNewHashtag('');
+        } else if (newAmount) {
+            highlightText(newAmount, amountPattern);
+            setNewAmount('');
+        }
+    }
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+
+        // Prevent typing '+' if one already have amount
+        if (e.key === '+' && contentRef.current?.innerText.includes('+')) {
+            e.preventDefault();
+            return;
+        }
+
         if (showDropdown && filteredUsers.length > 0) {
             if (e.key === 'ArrowDown') {
                 e.preventDefault();
@@ -92,34 +178,35 @@ export function TextArea({ placeholder, value, onTextChange: textChange }: TextA
                 e.preventDefault();
                 setHighlightIndex((prev) => (prev - 1 + filteredUsers.length) % filteredUsers.length);
             } else if (e.key === 'Enter') {
-                const selected = filteredUsers[highlightIndex];
-                handleMentionSelect(selected);
                 e.preventDefault();
+                highlightText(filteredUsers[highlightIndex], userPattern);
             } else if (e.key === 'Escape') {
                 setShowDropdown(false);
+            }
+        } else {
+            if (e.key === ' ') {
+                insertTag()
             }
         }
     };
 
     return (
         <div className="relative">
-            <textarea
-                ref={textareaRef}
-                value={value}
-                onChange={handleTextChange}
+            <div
+                ref={contentRef}
+                contentEditable
+                onInput={handleInput}
                 onKeyDown={handleKeyDown}
-                className="w-full resize-none outline-none text-lg placeholder-gray-500 border rounded-md p-3"
-                placeholder={placeholder}
-                rows={4}
+                className="w-full min-h-[100px] resize-none outline-none text-lg placeholder-gray-500 border rounded-md p-3"
+                data-placeholder={placeholder}
+                style={{ whiteSpace: 'pre-wrap' }}
             />
-
-            {/* Dropdown for mentions */}
             {showDropdown && filteredUsers.length > 0 && (
                 <ul className="absolute z-10 top-full left-0 mt-1 w-60 bg-white border shadow-lg rounded-md max-h-60 overflow-y-auto">
                     {filteredUsers.map((u, index) => (
                         <li
                             key={index}
-                            onClick={() => handleMentionSelect(u)}
+                            onClick={() => highlightText(u, userPattern)}
                             className={`px-4 py-2 cursor-pointer ${highlightIndex === index ? 'bg-blue-100' : 'hover:bg-gray-100'}`}
                         >
                             @{u}
