@@ -94,16 +94,19 @@ const renderGroup = (title: string, list: UpcommingCelebration[]) => (
     <div className="mb-4">
       <h3 className="text-sm font-semibold text-gray-700 mb-2">{title}</h3>
        <ul className="space-y-4">
-      {list.map((user) => (
+      {list.map((user) => (  <>
                       <li className="flex items-start space-x-3">
       <div className="flex items-center space-x-3">
-        <Image
-          src={user.avatarUrl ?? '/img/prof-img.png'} // Replace with your image path
-          alt={user.name}
-          width={40}
-          height={40}
-          className="rounded-full"
-        />
+
+              <Image
+                            src= '/img/prof-img.png'
+                            alt={user?.name || ''}
+                            width={40}
+                            height={40}
+                            className="rounded-full"
+                          
+                        />
+
         <div>
           <p className="font-medium text-sm text-gray-900">{user.name}</p>
           {renderContent(title, user.celebrationDate, user.celebrationName)}
@@ -111,19 +114,8 @@ const renderGroup = (title: string, list: UpcommingCelebration[]) => (
         </div>
       </div>
       </li>
-        // <div key={user.userId} className="flex items-center space-x-3 mb-2">
-        //   <Image
-        //     src={user.avatarUrl ?? '/default-avatar.png'}
-        //     alt={user.name}
-        //     width={40}
-        //     height={40}
-        //     className="rounded-full object-cover"
-        //   />
-        //   <div>
-        //     <p className="text-sm font-medium text-gray-900">{user.name}</p>
-        //     <p className="text-sm text-gray-500">{user.celebrationName}</p>
-        //   </div>
-        // </div>
+</>
+
       ))}
       </ul>
     </div>
@@ -144,32 +136,6 @@ const renderGroup = (title: string, list: UpcommingCelebration[]) => (
       {renderGroup('Today', today)}
 {renderGroup('Upcoming', upcoming)}
 {renderGroup('Recent', recent)}
-         {/* <ul className="space-y-4">
-              <p className="text-sm font-medium text-gray-800">Today</p>
-  {celebrations.map((user) => (
-
-              <li className="flex items-start space-x-3">
-      <div className="flex items-center space-x-3">
-        <Image
-          src={user.avatarUrl ?? '/img/prof-img.png'} // Replace with your image path
-          alt={user.name}
-          width={40}
-          height={40}
-          className="rounded-full"
-        />
-        <div>
-          <p className="font-medium text-sm text-gray-900">{user.name}</p>
-          <p className="text-sm text-gray-500">
-            {user.celebrationName} in <span className="text-green-600 font-medium">3 days</span>
-          </p>
-        </div>
-      </div>
-      </li>
- 
-          ))}
-
-
-               </ul> */}
     </div>
 
   );

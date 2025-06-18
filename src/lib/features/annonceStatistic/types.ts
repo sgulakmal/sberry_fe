@@ -1,12 +1,20 @@
 
 
-// export interface User {
-//      userId: string;
-//         email: string;
-//         username: string;
-//         designation: string;
-//         profilePictureUrl: string;
-// }
+export interface AnnouncementStatistics {
+
+announcementId:  string;
+  title: string;
+  totalAcknowledgements: number;
+  acknowledgementRate: number;
+  averageRating: number;
+  ratingCount: number;
+}
+
+export interface AnnouncementsStatisticState {
+  data: AnnouncementStatistics;
+  loading: boolean;
+  error: string | null;
+}
 
 
 // export interface Announcement {

@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/store";
 import FriendList from "../components/FriendList";
 import UpcommingCelebration from "../components/UpcommingCelebration";
+import WalletCard from "../components/WalletCard";
+
 
 // export const metadata: Metadata = {
 //   title: "SBerry",
@@ -64,8 +66,13 @@ export default function RootLayout({
         {/* Right Sidebar */}
         <aside className="w-64 p-6 space-y-4 bg-white border-l">
           {/* Right sidebar content */}
+          <WalletCard/>
           <UpcommingCelebration />
+
+           
         </aside>
+
+
 
       </div>
 

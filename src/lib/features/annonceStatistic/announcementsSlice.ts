@@ -1,41 +1,37 @@
-// import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// import { Announcement } from './types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnnouncementsStatisticState, AnnouncementStatistics } from './types';
 
 
-// interface AnnouncementState {
-//   data: Announcement[];
-//     loading: boolean;
-//   error: string | null;
-// }
 
-// const initialState: AnnouncementState = {
-//   data: [],
-//     loading: false,
-//   error: null,
-// };
 
-// const announcementSlice = createSlice({
-//   name: 'announcement',
-//   initialState,
-//   reducers: {
-//     acknowledgeAnnouncement(state, action: PayloadAction<string>) {
-//       const ann = state.data.find(a => a.announcementId === action.payload);
-//       if (ann) {
-//        // ann.acknowledged = true;
-//       }
-//     },
-//     setemptyData(state, action: PayloadAction<any>) {
-//           state.data = [];
+const initialState: AnnouncementsStatisticState = {
+  data : {announcementId:'',
+  title: '',
+  totalAcknowledgements:0,
+  acknowledgementRate:0,
+  averageRating: 0,
+  ratingCount:0,},
+    loading: false,
+  error: null,
+};
+
+const announcementStatisticSlice = createSlice({
+  name: 'announcementStatistic',
+  initialState,
+  reducers: {
+
+    // setemptyData(state, action: PayloadAction<any>) {
+    //       state.data = action.payload;
         
-//         },
+    //     },
 
-//         setAnnouncements(state, action: PayloadAction<any>) {
-//           state.data = action.payload.items;
-//            state.loading = false;
+        setAnnouncementsStatistic(state, action: PayloadAction<any>) {
+          state.data =  action.payload;
+           state.loading = false;
         
-//         },
-//   },
-// });
+        },
+  },
+});
 
-// export const { acknowledgeAnnouncement , setAnnouncements, setemptyData } = announcementSlice.actions;
-// export default announcementSlice.reducer;
+export const { setAnnouncementsStatistic } = announcementStatisticSlice.actions;
+export default announcementStatisticSlice.reducer;

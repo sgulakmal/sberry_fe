@@ -1,7 +1,7 @@
 'use client';
 
 import { VariableSizeList as List, ListOnItemsRenderedProps } from 'react-window';
-import { useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Post } from '@/lib/features/post/types';
@@ -14,6 +14,11 @@ import api from '@/lib/services/axios';
 import WallHeader from './WallHeader';
 import { useAddPostToStore } from '@/lib/helper/hook/post';
 import { PostType } from '@/lib/enum/post';
+import AnnouncementList from './AnnouncementsList';
+import StatisticsCard from './AnnouncementStatistic';
+import Wallet from './Wallet';
+import PointsHistory from './PointsHistory';
+
 
 
 
@@ -139,6 +144,11 @@ export default function Wall() {
                     <div style={style}>
                         {index === 0 &&
                             <div className="mb-12">
+                                {/* <Wallet />
+                                <PointsHistory />
+
+            <StatisticsCard announcementId='f312cebf-7745-44c7-a987-276419242e7f'/> */}
+                              {/* <AnnouncementList /> */}
                                 <AnnouncementBanner />
                                 <WallHeader />
                             </div>}

@@ -1,6 +1,6 @@
 // app/feed/CreatePost.tsx
 'use client';
-import { addPosts } from '@/lib/features/feed/feedSlice';
+import { addPost } from '@/lib/features/feed/feedSlice';
 import { AppDispatch } from '@/lib/store';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,7 +12,7 @@ export default function CreatePost() {
 
   const handlePost = () => {
     if (content.trim()) {
-      dispatch(addPosts({ user: 'You', content }));
+      dispatch(addPost({ user: 'You', content }));
       setContent('');
     }
   };
