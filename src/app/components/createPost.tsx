@@ -1,35 +1,42 @@
-// app/feed/CreatePost.tsx
 'use client';
-import { addPost } from '@/lib/features/feed/feedSlice';
-import { AppDispatch } from '@/lib/store';
+ 
+import { AppStore } from '@/lib/type';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
+import { useSelector } from 'react-redux';
+import Image from 'next/image';
+import { TextArea } from '../utils/components/TextArea';
 
 export default function CreatePost() {
-  const [content, setContent] = useState('');
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handlePost = () => {
-    if (content.trim()) {
-      dispatch(addPost({ user: 'You', content }));
-      setContent('');
-    }
-  };
-
-  return (
-    <div className="border p-4 mb-4 bg-white rounded shadow">
-         <h2 className="text-xl font-semibold mb-4">News Feed</h2>
-      <textarea
-        className="w-full border p-2 rounded mb-2"
-        rows={3}
-        placeholder="What's on your mind?"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
+  const [postText, setPostText] = useState('');
+  const user = useSelector((state: AppStore) => state.auth.user);
+  const [profilePictureUrl, setProfilePictureUrl] = useState(user?.profilePictureUrl);
+   return (
+    <div className="max-w-md mx-auto p-4 bg-white rounded-lg relative">
+      {/* User Info */}
+      <div className="flex items-center gap-3 mb-4">
+        <Image
+          src={profilePictureUrl || '/images/default-user.png'}
+          alt={user?.email || ''}
+          width={50}
+          height={50}
+          className="rounded-full"
+          onError={() => setProfilePictureUrl('/images/default-user.png')}
+        />
+        <div>
+          <p className="font-semibold">
+            {user?.firstName} {user?.lastName}
+          </p>
+        </div>
+      </div>
+ 
+      {/* Textarea */}
+      <TextArea placeholder={`What's on your mind, ${user?.firstName}?`} value={postText} onTextChange={setPostText} />
+ 
+      {/* Post Button */}
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        onClick={handlePost}
+        disabled={!postText.trim()}
+        className={`mt-4 w-full py-2 rounded-md text-white font-semibold ${postText.trim() ? 'bg-primary hover:bg-hover' : 'bg-gray-300 cursor-not-allowed'
+          }`}
       >
         Post
       </button>

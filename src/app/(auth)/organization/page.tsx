@@ -33,7 +33,7 @@ export default function LoginPage() {
     });
 
     if (result?.ok) {
-      router.push('/'); // Redirect to home
+      router.push('/'); // ✅ Redirect to home
     } else {
       alert('Invalid credentials');
     }

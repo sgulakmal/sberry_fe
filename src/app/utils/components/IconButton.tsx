@@ -8,17 +8,18 @@ type IconProps = {
   text?: string;
   hoverComponent?: React.ReactNode; // Component to show on hover
   onClick?: () => void;
+  className?: string;
 
 };
 
-export function IconButton({ icon, alt = '', size = 24, text, hoverComponent, onClick }: IconProps) {
+export function IconButton({ icon, alt = '', size = 24, text, hoverComponent, onClick, className }: IconProps) {
 
 
   const [hovered, setHovered] = useState(false);
 
   return (
     <div
-      className="relative inline-block"
+       className={`relative inline-block ${className}`}
       onMouseEnter={() => setHovered(true)}
     >
       {hovered && hoverComponent && (
