@@ -1,11 +1,4 @@
-export enum ReactionType {
-    'like' = 'like',
-    'love' = 'love',
-    'haha' = 'haha',
-    'wow' = 'wow',
-    'sad' = 'sad',
-    'angry' = 'angry',
-}
+import { ReactionType } from "@/lib/enum/post";
 
 export interface ReactionSummary {
   like: number;

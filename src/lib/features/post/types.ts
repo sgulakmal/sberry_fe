@@ -1,7 +1,7 @@
 import { Visibility } from "@/lib/enum/post";
 import { ReactionSummary, ReactionType } from "../reactions/types";
 
-export interface UserSummary {
+export interface AuthorDto {
   userId: string;
   username: string;
   profilePictureUrl: string;
@@ -12,7 +12,7 @@ export interface UserSummary {
 interface CommentSummary {
   id: string;
   content: string;
-  author: UserSummary;
+  author: AuthorDto;
   createdAt: string;
 }
 
@@ -31,7 +31,7 @@ export interface Post {
   followers?: string[];
   visibility?: Visibility;
   isPinned?: boolean;
-  author: UserSummary;
+  author: AuthorDto;
   content: string;
   mediaUrls?: string[]; // optional for images/videos
   images?: string[]
@@ -50,4 +50,25 @@ export interface Post {
 
 export interface PostState {
   postByPostId: Record<string, Post>;
+}
+
+export interface Reactions {
+  [reactionType: string]: number;
+}
+
+export interface CreatePostDto {
+  companyId: string;
+  companyBranchId: string;
+  author: AuthorDto;
+  content: string;
+  images?: string[];
+  likes?: number;
+  comments?: Comment[];
+  tags?: string[];
+  visibility?: Visibility;
+  reactions?: Reactions;
+  isAnnouncement?: boolean;
+  isPinned?: boolean;
+  followers?: string[];
+  amount?: number;
 }

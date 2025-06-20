@@ -25,3 +25,9 @@ export enum TransactionType {
     earned = 'earned',
     redeemed = 'redeemed',
 }
+
+export enum ContentHighlightType {
+    person = 'Person',
+    hashTag = 'HashTag',
+    amount = 'Amount'
+}

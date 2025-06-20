@@ -13,7 +13,7 @@ const formatDate = (date: Date) =>
   }).format(new Date(date));
 
 export default function PointsHistory() {
-  const points = useSelector((state:RootState) => state.points.points);
+  const points = useSelector((state:RootState) => state?.points?.points);
   const [typeFilter, setTypeFilter] = useState<'all' | 'credit' | 'debit'>('all');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');

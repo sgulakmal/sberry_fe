@@ -24,12 +24,12 @@ const DialogPopup: React.FC<DialogPopupProps> = ({ isOpen, onClose, title, child
       {/* Background Overlay */}
       <div
         className="absolute inset-0 bg-black bg-opacity-50"
-        onClick={onClose}
+        // onClick={onClose}
       />
 
       {/* Dialog Content */}
       <div
-        className="relative z-10 bg-white rounded-xl shadow-xl p-6 w-full max-w-md"
+        className="relative z-10 bg-white rounded-xl shadow-xl p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative flex justify-center items-center mb-2">

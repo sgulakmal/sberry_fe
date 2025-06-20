@@ -1,3 +1,4 @@
+import { ContentHighlightType } from "@/lib/enum/post";
 import { useRef, useState } from "react";
 
 // Mock user list
@@ -16,7 +17,8 @@ type Props = {
     onTextChange?: (value: string) => void;
 };
 
-export function TextArea({ placeholder, onTextChange }: Props) {
+
+export function TextEditor({ placeholder, onTextChange }: Props) {
     const [mentionQuery, setMentionQuery] = useState('');
     const [filteredUsers, setFilteredUsers] = useState<string[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
@@ -39,7 +41,7 @@ export function TextArea({ placeholder, onTextChange }: Props) {
 
     const handleInput = () => {
 
-         setText();
+        setText();
 
         const text = getTextContent();
 
@@ -123,12 +125,19 @@ export function TextArea({ placeholder, onTextChange }: Props) {
         const a = document.createElement("a");
         a.href = "#";
         a.textContent = `${hlText}`;
+        // a.dataset.i = '';
         if (pattern === userPattern) {
             a.className = "text-blue-600 font-medium";
+            a.dataset.highlight = ContentHighlightType.person;
+            a.dataset.value = hlText;
         } else if (pattern === hashtagPattern) {
             a.className = "text-purple-600 font-medium";
+            a.dataset.highlight = ContentHighlightType.hashTag;
+            a.dataset.value = hlText;
         } else if (pattern === amountPattern) {
             a.className = "text-red-600 font-medium";
+            a.dataset.highlight = ContentHighlightType.amount;
+            a.dataset.value = hlText.replace("+", '');
         }
 
 
@@ -196,7 +205,8 @@ export function TextArea({ placeholder, onTextChange }: Props) {
                 ref={contentRef}
                 contentEditable
                 onInput={handleInput}
-                onKeyDown={handleKeyDown}
+                onKeyDown={handleKeyDown} 
+                onBlur={insertTag}               
                 className="w-full min-h-[100px] resize-none outline-none text-lg placeholder-gray-500 border rounded-md p-3"
                 data-placeholder={placeholder}
                 style={{ whiteSpace: 'pre-wrap' }}

@@ -8,7 +8,7 @@ import { AppDispatch } from '@/lib/store';
 
 export default function Wallet() {
   const dispatch = useDispatch<AppDispatch>();
-  const points = useSelector((state: AppStore) => state.points.points);
+  const points = useSelector((state: AppStore) => state?.points?.points);
 
   const currentBalance = points
     .filter(p => p.cr_dr === 'credit')

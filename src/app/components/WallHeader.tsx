@@ -6,7 +6,7 @@ import { AppStore } from '@/lib/type';
 import Image from 'next/image';
 import { IconButton } from '../utils';
 import DialogPopup from '../utils/components/DalogPopup';
-import CreatePost from './createPost';
+import CreatePost from './CreatePost';
 
  
 const WallHeader = () => {

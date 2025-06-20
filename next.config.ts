@@ -18,9 +18,21 @@ const nextConfig: NextConfig = {
         hostname: "images.pexels.com",
         pathname: "/photos/**",
       },
+      {
+        protocol: "https",
+        hostname: "giphy.com",
+        pathname: "/gifs/**",
+      },
+      {
+        protocol: "https",
+        hostname: "**.giphy.com",
+        pathname: "/media/**",
+      },
+
 
     ],
   },
 };
 
 export default nextConfig;
+

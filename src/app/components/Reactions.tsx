@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectReactionsByPostId } from '@/lib/features/reactions/reactionsSelectors';
 import { addReaction } from '@/lib/features/reactions/reactionsSlice';
-import { ReactionType } from '@/lib/features/reactions/types';
 import { AppDispatch } from '@/lib/store';
 import { AppStore } from '@/lib/type';
 import { IconButton } from '../utils';
 import { formatCount } from '../utils/number';
+import { ReactionType } from '@/lib/enum/post';
 
 interface ReactionsProps {
   postId: string;

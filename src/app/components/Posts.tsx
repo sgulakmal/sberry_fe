@@ -17,27 +17,27 @@ function Posts({ postId, postType }: { postId: string, postType: PostType }) {
   const [profilePictureUrl, setProfilePictureUrl] = useState(post?.author?.profilePictureUrl);
   const safeHTML = DOMPurify.sanitize(post.content);
 
-  function getRandomImageForPost(): string {
-    const images: string[] = [
-      '/images/sample_post0.png', '/images/sample_post1.jpg', '/images/sample_post2.jpg', '/images/sample_post3.jpeg',
-      'https://images.pexels.com/photos/1903702/pexels-photo-1903702.jpeg',
-      'https://images.pexels.com/photos/1040626/pexels-photo-1040626.jpeg',
-      'https://images.pexels.com/photos/459203/pexels-photo-459203.jpeg',
-      'https://images.pexels.com/photos/1020016/pexels-photo-1020016.jpeg',
-      'https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg',
-      'https://images.pexels.com/photos/145939/pexels-photo-145939.jpeg',
-      'https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg',
-    ];
-    const hash = postId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    return images[hash % images.length];
-  }
+  // function getRandomImageForPost(): string {
+  //   const images: string[] = [
+  //     '/images/sample_post0.png', '/images/sample_post1.jpg', '/images/sample_post2.jpg', '/images/sample_post3.jpeg',
+  //     'https://images.pexels.com/photos/1903702/pexels-photo-1903702.jpeg',
+  //     'https://images.pexels.com/photos/1040626/pexels-photo-1040626.jpeg',
+  //     'https://images.pexels.com/photos/459203/pexels-photo-459203.jpeg',
+  //     'https://images.pexels.com/photos/1020016/pexels-photo-1020016.jpeg',
+  //     'https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg',
+  //     'https://images.pexels.com/photos/145939/pexels-photo-145939.jpeg',
+  //     'https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg',
+  //   ];
+  //   const hash = postId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  //   return images[hash % images.length];
+  // }
 
-  const testPostBgClasses = [
-    'from-blue-500 to-purple-600',
-    'from-pink-500 to-red-500',
-    'from-green-400 to-teal-500',
-    'from-yellow-400 to-orange-500',
-  ];
+  // const testPostBgClasses = [
+  //   'from-blue-500 to-purple-600',
+  //   'from-pink-500 to-red-500',
+  //   'from-green-400 to-teal-500',
+  //   'from-yellow-400 to-orange-500',
+  // ];
 
   if (!post || !post.content) return <>Post Not Found for id {postId}</>;
 
@@ -64,17 +64,17 @@ function Posts({ postId, postType }: { postId: string, postType: PostType }) {
       </div>
 
       {/* Content */}
-      {postType === PostType.image && (
+      {(postType === PostType.image) && (
         <>
           <div className="text-sm text-gray-700" dangerouslySetInnerHTML={{ __html: safeHTML }}></div>
           <div className="relative h-[450px] rounded-md overflow-hidden">
-            <Image
-              src={getRandomImageForPost()}
+            {post?.images && <Image
+              src={post.images[0]}
               alt={post.content}
               fill
               className="object-cover"
               onLoadingComplete={() => setImageLoading(false)}
-            />
+            />}
           </div>
         </>
       )}
@@ -106,8 +106,11 @@ function Posts({ postId, postType }: { postId: string, postType: PostType }) {
           <IconButton icon="share" text="Share" />
         </div>
       </div>
+
     </div>
+
   );
+
 }
 
 // Memoize component to avoid unnecessary re-renders
