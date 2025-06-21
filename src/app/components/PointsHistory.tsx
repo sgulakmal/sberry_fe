@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux';
 
 import { useState } from 'react';
-import { AppStore, RootState } from '@/lib/store';
+import { RootState } from '@/lib/store';
 
 
 const formatDate = (date: Date) =>
@@ -34,7 +34,7 @@ export default function PointsHistory() {
         <select
           className="border rounded p-2 text-sm"
           value={typeFilter}
-          onChange={(e) => setTypeFilter(e.target.value as any)}
+          onChange={(e) => setTypeFilter(e.target.value as 'all' | 'credit' | 'debit')}
         >
           <option value="all">All</option>
           <option value="credit">Credit</option>

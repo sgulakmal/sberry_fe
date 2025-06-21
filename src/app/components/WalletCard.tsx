@@ -1,14 +1,14 @@
  
 'use client';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 ;
-import { redeemPoints } from '@/lib/features/wallet/walletSlice';
+// import { redeemPoints } from '@/lib/features/wallet/walletSlice';
 import { AppStore } from '@/lib/type';
-import { AppDispatch } from '@/lib/store';
+// import { AppDispatch } from '@/lib/store';
 
 
 export default function WalletCard() {
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
   const points = useSelector((state: AppStore) => state?.points?.points);
 
   const currentBalance = points
@@ -19,9 +19,9 @@ export default function WalletCard() {
     .filter(p => p.naration.toLowerCase().includes('pot'))
     .reduce((sum, p) => sum + p.point, 0);
 
-  const handleRedeem = () => {
-    dispatch(redeemPoints(10)); // You can change amount or make it dynamic
-  };
+  // const handleRedeem = () => {
+  //   dispatch(redeemPoints(10)); // You can change amount or make it dynamic
+  // };
 
   return (
    <div className="border bg-green-100 rounded-lg p-4 max-w-xs">

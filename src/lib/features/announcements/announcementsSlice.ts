@@ -24,12 +24,12 @@ const announcementSlice = createSlice({
        // ann.acknowledged = true;
       }
     },
-    setemptyData(state, action: PayloadAction<any>) {
+    setemptyData(state) {
           state.data = [];
         
         },
 
-        setAnnouncements(state, action: PayloadAction<any>) {
+        setAnnouncements(state, action: PayloadAction<{items: Announcement[]}>) {
           state.data = action.payload.items;
            state.loading = false;
         

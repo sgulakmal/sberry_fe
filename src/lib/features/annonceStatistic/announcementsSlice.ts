@@ -25,7 +25,7 @@ const announcementStatisticSlice = createSlice({
         
     //     },
 
-        setAnnouncementsStatistic(state, action: PayloadAction<any>) {
+        setAnnouncementsStatistic(state, action: PayloadAction<AnnouncementStatistics>) {
           state.data =  action.payload;
            state.loading = false;
         

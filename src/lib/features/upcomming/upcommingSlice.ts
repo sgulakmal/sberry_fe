@@ -22,7 +22,7 @@ const upcommingSlice = createSlice({
   name: 'upcommingCelebration',
   initialState,
   reducers: {
-    setUpcommingCelebration(state, action: PayloadAction<any>) {
+    setUpcommingCelebration(state, action: PayloadAction<UpcommingCelebration[]>) {
       state.data =  action.payload;
       
 //       [    {

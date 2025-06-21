@@ -19,7 +19,7 @@ type Props = {
 
 
 export function TextEditor({ placeholder, onTextChange }: Props) {
-    const [mentionQuery, setMentionQuery] = useState('');
+    // const [mentionQuery, setMentionQuery] = useState('');
     const [filteredUsers, setFilteredUsers] = useState<string[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [highlightIndex, setHighlightIndex] = useState(0);
@@ -74,7 +74,7 @@ export function TextEditor({ placeholder, onTextChange }: Props) {
 
             if (parts.length <= 2) {
                 const query = queryRaw.toLowerCase();
-                setMentionQuery(query);
+                // setMentionQuery(query);
 
                 const filtered = mentionUsers.filter(user =>
                     query

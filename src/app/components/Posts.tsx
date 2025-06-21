@@ -13,7 +13,7 @@ import DOMPurify from 'dompurify';
 
 function Posts({ postId, postType }: { postId: string, postType: PostType }) {
   const post: Post = useSelector((state: AppStore) => state.post.postByPostId[postId]);
-  const [imageLoading, setImageLoading] = useState(true);
+  // const [imageLoading, setImageLoading] = useState(true);
   const [profilePictureUrl, setProfilePictureUrl] = useState(post?.author?.profilePictureUrl);
   const safeHTML = DOMPurify.sanitize(post.content);
 
@@ -73,7 +73,7 @@ function Posts({ postId, postType }: { postId: string, postType: PostType }) {
               alt={post.content}
               fill
               className="object-cover"
-              onLoadingComplete={() => setImageLoading(false)}
+              // onLoadingComplete={() => setImageLoading(false)}
             />}
           </div>
         </>

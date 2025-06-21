@@ -1,6 +1,6 @@
 import { RootState } from '@/lip/store';
-import { Comment } from './types';
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+// import { Comment } from './types';
+// import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { createSelector } from '@reduxjs/toolkit';
 
 

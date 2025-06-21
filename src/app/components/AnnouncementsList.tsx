@@ -6,12 +6,10 @@ import { setAnnouncementsList } from '@/lib/features/announcementList/announceme
 
 import api from '@/lib/services/axios';
 import { RootState } from '@/lib/store';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 
 const AnnouncementList = () =>  {
   const dispatch = useDispatch();
-  const { data, loading } = useSelector((state: RootState) => state.announcementList);
+  const { data } = useSelector((state: RootState) => state.announcementList);
   
 
   // useEffect(() => {
@@ -52,7 +50,7 @@ const amnouncementist  = await api.get('/announcement');
          // setLoading(false);
         }
         fetchData();
-      }, []);
+      }, [dispatch]);
 
 
 

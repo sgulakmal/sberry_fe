@@ -1,17 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/lib/store';
-import { Friend } from '@/lib/features/friends/types';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { IconButton } from '../utils';
 import api from '@/lib/services/axios';
 import { setUpcommingCelebration } from '@/lib/features/upcomming/upcommingSlice';
-import { UpcommingState } from '@/lib/features/upcomming/types';
 import dayjs from 'dayjs';
 import { formatCelebrationDate, timeAgo } from '../utils/date';
 
 
-const month = new Date().getMonth() + 1; // 1-indexed
+// const month = new Date().getMonth() + 1; // 1-indexed
 interface UpcommingCelebration {
   userId: string;
   name: string;
@@ -39,7 +37,7 @@ export default function UpcommingCelebration() {
  useEffect(() => {
         async function fetchData() {
 
-     const data: UpcommingState  = await api.get('/celebrations/month');
+     const data: UpcommingCelebration[]  = await api.get('/celebrations/month');
 
                  dispatch(setUpcommingCelebration(data));
 
@@ -47,7 +45,7 @@ export default function UpcommingCelebration() {
          // setLoading(false);
         }
         fetchData();
-      }, []);
+      }, [dispatch]);
 
 const groupCelebrations = (celebrations : UpcommingCelebration[]) => {
   const today = dayjs().startOf('day');

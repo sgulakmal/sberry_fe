@@ -1,7 +1,6 @@
 'use client';
 
 import { setAnnouncementsStatistic } from '@/lib/features/annonceStatistic/announcementsSlice';
-import { AnnouncementsStatisticState } from '@/lib/features/annonceStatistic/types';
 import api from '@/lib/services/axios';
 import { AppStore } from '@/lib/type';
 import { useEffect } from 'react';
@@ -15,7 +14,7 @@ interface Props {
 export default function StatisticsCard({ announcementId }: Props) {
   const dispatch = useDispatch();
   //const { stats, loading, error } = useSelector((stat) => stat.);
-     const  { data, loading, error } = useSelector((state: AppStore) => state.announcementStatistic);
+     const  { data } = useSelector((state: AppStore) => state.announcementStatistic);
 
 //   useEffect(() => {
 //     dispatch(fetchAnnouncementStatistics(announcementId));
@@ -46,7 +45,7 @@ export default function StatisticsCard({ announcementId }: Props) {
          // setLoading(false);
         }
         fetchData();
-      }, []);
+      }, [announcementId, dispatch]);
 //   if (loading) return <p>Loading stats...</p>;
 //   if (error) return <p className="text-red-500">Error: {error}</p>;
 //   if (!data) return null;

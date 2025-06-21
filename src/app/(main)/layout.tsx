@@ -2,14 +2,12 @@
 
 import { useEffect } from "react";
 // import type { Metadata } from "next";
-import StoreProvider from "../StoreProvider";
 import MainMenu from "../components/MainMenu";
 import TopNav from "../components/TopNav";
 import { signIn, useSession } from 'next-auth/react';
 import { login } from "@/lib/features/user/userSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/store";
-import FriendList from "../components/FriendList";
 import UpcommingCelebration from "../components/UpcommingCelebration";
 import WalletCard from "../components/WalletCard";
 
@@ -33,7 +31,7 @@ export default function RootLayout({
       // const selectedOrganizer = localStorage.getItem('SELECTED_ORGANIZATION')
       dispatch(login(session.user))
     }
-  }, [session]);
+  }, [dispatch, session]);
 
   //     router.push('/'); // Redirect to home
 

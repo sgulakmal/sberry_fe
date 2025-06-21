@@ -14,10 +14,7 @@ import api from '@/lib/services/axios';
 import WallHeader from './WallHeader';
 import { useAddPostToStore } from '@/lib/helper/hook/post';
 import { PostType } from '@/lib/enum/post';
-import AnnouncementList from './AnnouncementsList';
-import StatisticsCard from './AnnouncementStatistic';
-import Wallet from './Wallet';
-import PointsHistory from './PointsHistory';
+
 
 
 
@@ -49,6 +46,7 @@ export default function Wall() {
 
     useEffect(() => {
         fetchPosts(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page]);
 
 
@@ -61,6 +59,7 @@ export default function Wall() {
     }, [wall.wallItems]);
 
     const fetchPosts = async (page: number) => {
+        console.log('Current Wall Page', page)
         if (isLoadingRef.current || !hasMore) return;
 
         isLoadingRef.current = true;

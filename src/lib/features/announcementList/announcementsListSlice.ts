@@ -29,7 +29,7 @@ const announcementSlice = createSlice({
         
     //     },
 
-        setAnnouncementsList(state, action: PayloadAction<any>) {
+        setAnnouncementsList(state, action: PayloadAction<{items: Announcement[]}>) {
           state.data = action.payload.items;
            state.loading = false;
         

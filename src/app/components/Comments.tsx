@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { commentSelector } from '@/lib/features/comments/commentsSelector';
 import { addComment, addReply, likeComment, updateReplyInput } from '@/lib/features/comments/commentsSlice';
@@ -11,7 +11,6 @@ interface CommentsProps {
 
 const CommentComponent: React.FC<CommentsProps> = ({ postId }) => {
 
- const useAppDispatch = () => useDispatch<AppDispatch>();
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
   const [newComment, setNewComment] = useState("");

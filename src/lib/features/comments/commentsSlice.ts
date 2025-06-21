@@ -1,19 +1,19 @@
 // features/comments/commentSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Comment, CommentsState, Reply } from "./types";
+import { Comment, CommentsState } from "./types";
 
-const initialComment: Comment = {
-  id: 0,
-   postId:'post1',
-  text:'ss',
-  likes: 0,
-  replies: [],
-  replyInput:'' ,
-};
+// const initialComment: Comment = {
+//   id: 0,
+//    postId:'post1',
+//   text:'ss',
+//   likes: 0,
+//   replies: [],
+//   replyInput:'' ,
+// };
 
-interface CommentState {
-  commentsByPostId: Record<string, Comment[]>;
-}
+// interface CommentState {
+//   commentsByPostId: Record<string, Comment[]>;
+// }
 const initialState: CommentsState = {
   commentsByPostId: {},
 };
@@ -72,18 +72,18 @@ addComment: (
       state, 
       action: PayloadAction<{ postId: string; id: number }>) => {
       
-       const { postId, id } = action.payload;
+      //  const { postId, id } = action.payload;
       const comment = state.commentsByPostId[action.payload.postId].find((c) => c.id=== action.payload.id);
       if (comment) comment.likes += 1;
     },
     updateReplyInput: (
-      state,
-      action: PayloadAction<{ id: number; value: string }>
+      // state,
+      // action: PayloadAction<{ id: number; value: string }>
     ) => {
       // const comment = state.comments.find((c) => c.id === action.payload.id);
       // if (comment) comment.replyInput = action.payload.value;
     },
-    addReply: (state, action: PayloadAction<{ id: number }>) => {
+    // addReply: (state, action: PayloadAction<{ id: number }>) => {
       // const comment = state.comments.find((c) => c.id === action.payload.id);
       // if (comment && comment.replyInput?.trim()) {
       //   comment.replies.push({
@@ -92,7 +92,7 @@ addComment: (
       //   });
       //   comment.replyInput = "";
       // }
-    },
+    // },
   },
 });
 

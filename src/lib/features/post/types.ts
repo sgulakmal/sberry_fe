@@ -1,5 +1,5 @@
 import { Visibility } from "@/lib/enum/post";
-import { ReactionSummary, ReactionType } from "../reactions/types";
+import { ReactionSummary } from "../reactions/types";
 
 export interface AuthorDto {
   userId: string;

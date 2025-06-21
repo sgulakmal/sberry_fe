@@ -82,40 +82,37 @@ import api from '@/lib/services/axios';
 //     date: new Date(),
 //     isPinned: true,
 //   }
-  
+
 //   // Add more mock announcements here
 // ];
 
 export default function AnnouncementSlider() {
   const [current, setCurrent] = useState(0);
-  const [loading, setLoading] = useState(true);
-   const announcement1: AnnouncementsState = useSelector((state: AppStore) => state.announcement);
-   //const wall: WallState = useSelector((state: AppStore) => state.wall);
-const dispatch = useDispatch<AppDispatch>();
-     const handleAcknowledge = (id: string) => {
+  // const [loading, setLoading] = useState(true);
+  const announcement1: AnnouncementsState = useSelector((state: AppStore) => state.announcement);
+  //const wall: WallState = useSelector((state: AppStore) => state.wall);
+  const dispatch = useDispatch<AppDispatch>();
+  const handleAcknowledge = (id: string) => {
 
 
-//onSubmitPost(id)
- 
-     dispatch(acknowledgeAnnouncement(id));
+    //onSubmitPost(id)
+
+    dispatch(acknowledgeAnnouncement(id));
   };
 
 
-//       const onSubmitPost = async (id) => {
-//        const acknowledge = {   announcementId: id,
-//   rating: 5,
-//   feedback: "Thanks for the "
-//             }
+  //       const onSubmitPost = async (id) => {
+  //        const acknowledge = {   announcementId: id,
+  //   rating: 5,
+  //   feedback: "Thanks for the "
+  //             }
 
 
-// const po = await api.post('/announcement/acknowledge', acknowledge);
-
-   
-
-//     }
+  // const po = await api.post('/announcement/acknowledge', acknowledge);
 
 
 
+  //     }
 
 
 
@@ -123,6 +120,11 @@ const dispatch = useDispatch<AppDispatch>();
 
 
 
+
+
+
+ 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const next = () => setCurrent((prev) => (prev + 1) % announcement1.data.length);
   const prev = () => setCurrent((prev) => (prev - 1 + announcement1.data.length) % announcement1.data.length);
 
@@ -131,40 +133,40 @@ const dispatch = useDispatch<AppDispatch>();
       next();
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [next]);
 
-    useEffect(() => {
-        async function fetchData() {
-      const data: { count:number; items: Announcement[] } = await api.get('/announcement');
-            
-                 dispatch(setAnnouncements(data));
-      
-           
-         // setData(data);
-          setLoading(false);
-        }
-        fetchData();
-      }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const data: { count: number; items: Announcement[] } = await api.get('/announcement');
 
-      // if (loading) {
-      //   return <p>Loading...</p>;
-      // }
+      dispatch(setAnnouncements(data));
+
+
+      // setData(data);
+      // setLoading(false);
+    }
+    fetchData();
+  }, [dispatch]);
+
+  // if (loading) {
+  //   return <p>Loading...</p>;
+  // }
 
 
   const announcement = announcement1.data[current];
 
-  return ( 
+  return (
     <div className="w-full mx-auto bg-white border rounded shadow">
       {/* Header */}
       <div className="p-4 flex items-center gap-4">
-          <Image src="/img/prof-img.png"
-            alt="Profile Image"
-      
-             className="w-10 h-10 rounded-full"
-            width="40"
-            height="40"
-           />  
-              <div>
+        <Image src="/img/prof-img.png"
+          alt="Profile Image"
+
+          className="w-10 h-10 rounded-full"
+          width="40"
+          height="40"
+        />
+        <div>
           <div className="font-semibold">{announcement?.createdBy.username}</div>
           <div className="text-sm text-gray-500">{announcement?.createdBy.designation}</div>
         </div>
@@ -182,8 +184,8 @@ const dispatch = useDispatch<AppDispatch>();
 
       {/* Acknowledge button */}
       <div className="px-4 pb-4">
-        <div  onClick={() => handleAcknowledge(announcement?.announcementId)} className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded flex items-center gap-2">
-           <IconButton icon="acknow" ></IconButton>
+        <div onClick={() => handleAcknowledge(announcement?.announcementId)} className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded flex items-center gap-2">
+          <IconButton icon="acknow" ></IconButton>
           Acknowledge
         </div>
       </div>
@@ -211,7 +213,7 @@ const dispatch = useDispatch<AppDispatch>();
           Show all
         </a>
       </div>
-    </div> 
+    </div>
   );
 }
 
