@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './features/user/userSlice'
 import reactionsReducer from './features/reactions/reactionsSlice'
 import commentsReducer from './features/comments/commentsSlice'
-import feedReducer from './features/Feed/feedSlice'
+// import feedReducer from './features/Feed/feedSlice'
 import friendReducer from './features/friends/friendSlice'
 import announcementReducer from './features/announcements/announcementsSlice'
 import wallReducer from './features/wall/wallSlice'
@@ -19,7 +19,7 @@ export const makeStore = () => {
       auth: authReducer,
       reactions: reactionsReducer,
       comments: commentsReducer,
-      feed: feedReducer,
+      // feed: feedReducer,
       friends: friendReducer,
       announcement: announcementReducer,
       wall: wallReducer,

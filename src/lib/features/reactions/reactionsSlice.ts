@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ReactionsState, ReactionType, ReactionSummary } from './types';
+import { ReactionsState, ReactionSummary } from './types';
+import { ReactionType } from '@/lib/enum/post';
 
 const initialReactions: ReactionSummary = {
   like: 0,

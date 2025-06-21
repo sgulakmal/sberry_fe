@@ -36,7 +36,7 @@ export default function StatisticsCard({ announcementId }: Props) {
     
 
         
-                 dispatch(setAnnouncementsStatistic(data));
+                 dispatch(setAnnouncementsStatistic(data.data));
 
         
         

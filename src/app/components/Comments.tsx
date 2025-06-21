@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { commentSelector } from '@/lib/features/comments/commentsSelector';
-import { addComment, addReply, likeComment, updateReplyInput } from '@/lib/features/comments/commentsSlice';
+import { addComment, likeComment } from '@/lib/features/comments/commentsSlice';
 import { AppDispatch, RootState } from '@/lib/store';
 
 
@@ -66,15 +66,15 @@ const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
               placeholder="Write a reply..."
               className="w-full border px-2 py-1 rounded text-sm mt-2"
               value={comment.replyInput || ""}
-              onChange={(e) =>
-                dispatch(
-                  updateReplyInput({ id: comment.id, value: e.target.value })
-                )
-              }
+              // onChange={(e) =>
+              //   dispatch(
+              //     updateReplyInput({ id: comment.id, value: e.target.value })
+              //   )
+              // }
             />
             <button
               className="mt-1 px-3 py-1 bg-gray-200 rounded text-sm"
-              onClick={() => dispatch(addReply({ id: comment.id }))}
+              // onClick={() => dispatch(addReply({ id: comment.id }))}
             >
               Reply
             </button>

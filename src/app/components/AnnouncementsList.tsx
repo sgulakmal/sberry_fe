@@ -7,10 +7,10 @@ import { setAnnouncementsList } from '@/lib/features/announcementList/announceme
 import api from '@/lib/services/axios';
 import { RootState } from '@/lib/store';
 
-const AnnouncementList = () =>  {
+const AnnouncementList = () => {
   const dispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.announcementList);
-  
+
 
   // useEffect(() => {
   //   dispatch(fetchAnnouncements() as any);
@@ -19,7 +19,7 @@ const AnnouncementList = () =>  {
   //     const fetchAnnouncements = async () => {
 
 
-   
+
   //           const amnouncementist = await api.get(`/announcement`);
 
   //  dispatch(setAnnouncementsList(amnouncementist));
@@ -29,28 +29,28 @@ const AnnouncementList = () =>  {
 
   //   };
 
-  
 
-//   const fetchCelebrations = createAsyncThunk(
-//   'celebrations/fetchCelebrations',
-//   async () => {
-//     const response = await api.get(`/announcement`);
-//     return response.data;
-//   }
-// );
-  
- useEffect(() => {
-        async function fetchData() {
 
-const amnouncementist  = await api.get('/announcement');
+  //   const fetchCelebrations = createAsyncThunk(
+  //   'celebrations/fetchCelebrations',
+  //   async () => {
+  //     const response = await api.get(`/announcement`);
+  //     return response.data;
+  //   }
+  // );
 
-                 dispatch(setAnnouncementsList(amnouncementist));
+  useEffect(() => {
+    async function fetchData() {
 
-         // setData(data);
-         // setLoading(false);
-        }
-        fetchData();
-      }, [dispatch]);
+      const items = await api.get('/announcement');
+
+      dispatch(setAnnouncementsList(items.data));
+
+      // setData(data);
+      // setLoading(false);
+    }
+    fetchData();
+  }, [dispatch]);
 
 
 
@@ -78,7 +78,7 @@ const amnouncementist  = await api.get('/announcement');
               </td>
               <td className="py-4 align-top text-right">
                 {a.acknowledgedAt ? (
-                  <p className="text-sm text-gray-600">Acknowledged on<br/>{new Date(a.acknowledgedAt).toISOString()}</p>
+                  <p className="text-sm text-gray-600">Acknowledged on<br />{new Date(a.acknowledgedAt).toISOString()}</p>
                 ) : (
                   <button className="border border-green-500 text-green-600 font-semibold px-4 py-1 rounded hover:bg-green-100">
                     Acknowledge

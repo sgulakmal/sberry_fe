@@ -84,19 +84,19 @@ addComment: (
       // if (comment) comment.replyInput = action.payload.value;
     },
     // addReply: (state, action: PayloadAction<{ id: number }>) => {
-      // const comment = state.comments.find((c) => c.id === action.payload.id);
-      // if (comment && comment.replyInput?.trim()) {
-      //   comment.replies.push({
-      //     id: Date.now(),
-      //     text: comment.replyInput,
-      //   });
-      //   comment.replyInput = "";
-      // }
+    //   const comment = state.comments.find((c) => c.id === action.payload.id);
+    //   if (comment && comment.replyInput?.trim()) {
+    //     comment.replies.push({
+    //       id: Date.now(),
+    //       text: comment.replyInput,
+    //     });
+    //     comment.replyInput = "";
+    //   }
     // },
   },
 });
 
-export const { addComment, likeComment, updateReplyInput, addReply } =
+export const { addComment, likeComment, updateReplyInput } =
   commentSlice.actions;
 
 export default commentSlice.reducer;
